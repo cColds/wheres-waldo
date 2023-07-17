@@ -25,4 +25,5 @@ module.exports = {
         ],
         "@typescript-eslint/no-non-null-assertion": "off",
     },
+    ignorePatterns: ["tailwind.config.js", ".eslintrc.cjs"],
 };
