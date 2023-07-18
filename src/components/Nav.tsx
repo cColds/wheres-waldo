@@ -10,7 +10,7 @@ function Nav() {
 
     return (
         <nav className="px-6 py-4 flex justify-between items-center border-b-2 ">
-            <p className="text-xl">
+            <p className="text-2xl">
                 <span className=" text-light-text dark:text-dark-text">
                     Pixel
                 </span>
@@ -19,9 +19,13 @@ function Nav() {
 
             <button
                 onClick={handleThemeToggle}
-                className="p-2.5 rounded-lg text-primary hover:bg-slate-200 border-primary/10 border-[1px]"
+                className="rounded-lg p-2 text-primary hover:bg-slate-100 dark:border-slate-800 border-[1px] dark:hover:bg-slate-900"
             >
-                {isDark ? <LuSun /> : <LuMoonStar />}
+                {isDark ? (
+                    <LuSun className="w-5 h-5" />
+                ) : (
+                    <LuMoonStar className="w-5 h-5" />
+                )}
             </button>
         </nav>
     );
