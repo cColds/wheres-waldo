@@ -18,6 +18,9 @@ export default {
                     secondary: "#05012d",
                 },
             },
+            boxShadow: {
+                primary: "0 20px 60px -10px #d21e32",
+            },
         },
     },
     plugins: [],
