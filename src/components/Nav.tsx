@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useTheme from "./hooks/useTheme";
 import { LuSun, LuMoonStar } from "react-icons/lu";
 
@@ -9,13 +10,15 @@ function Nav() {
     }
 
     return (
-        <nav className="px-6 py-4 flex justify-between items-center border-b-2 ">
-            <p className="text-2xl">
-                <span className=" text-light-text dark:text-dark-text">
-                    Pixel
-                </span>
-                <span className="text-primary">Hunt</span>
-            </p>
+        <nav className="px-6 py-4 flex justify-between items-center">
+            <Link to="/" aria-label="pixelhunt homepage">
+                <p className="text-2xl">
+                    <span className=" text-light-text dark:text-dark-text">
+                        Pixel
+                    </span>
+                    <span className="text-primary">Hunt</span>
+                </p>
+            </Link>
 
             <button
                 onClick={handleThemeToggle}
