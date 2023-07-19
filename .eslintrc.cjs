@@ -24,6 +24,12 @@ module.exports = {
             { allowConstantExport: true },
         ],
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+                checksVoidReturn: false,
+            },
+        ],
     },
     ignorePatterns: [
         "tailwind.config.js",
