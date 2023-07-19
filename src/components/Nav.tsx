@@ -33,7 +33,7 @@ function Nav({ game }: { game: GameData | null }) {
                                         alt="character"
                                         width="40px"
                                         height="40px"
-                                        className="rounded-lg object-cover aspect-square pointer-events-none"
+                                        className="rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-150 ease-in-out"
                                     />
                                     <p className="">{character.name}</p>
                                 </div>
