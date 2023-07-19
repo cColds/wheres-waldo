@@ -2,23 +2,22 @@ import { Link } from "react-router-dom";
 import games from "../gameData";
 
 function Card() {
-    console.log("hello");
     return (
         <>
             {games.map((game) => {
                 return (
                     <div
                         key={game.id}
-                        className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] bg-light-secondary dark:bg-dark-secondary rounded-lg"
+                        className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg"
                     >
                         <img
                             src={game.image}
                             alt="game preview"
-                            className="text-light-text dark:text-dark-text h-[70%] object-cover rounded-t-lg"
+                            className="h-[70%] object-cover rounded-t-lg"
                             draggable={false}
                         />
                         <div className="p-3 flex flex-col justify-between grow items-center">
-                            <h2 className="text-dark-background dark:text-light-background text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
+                            <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
                                 {game.title}
                             </h2>
                             <Link
