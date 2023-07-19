@@ -23,7 +23,7 @@ function App() {
     }, [location]);
 
     return (
-        <div className="text-light-text bg-light-background dark:text-dark-text dark:bg-black">
+        <div className="bg-inherit">
             <header className="sticky top-0 bg-inherit h-[80px]">
                 <Nav game={game} />
             </header>
