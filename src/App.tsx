@@ -6,7 +6,6 @@ import Game from "./pages/Game";
 import { useEffect, useState } from "react";
 import games from "./gameData";
 import GameData from "./types/gameData";
-
 function App() {
     const location = useLocation();
     const [game, setGame] = useState<GameData | null>(null);
@@ -24,7 +23,7 @@ function App() {
 
     return (
         <div className="bg-inherit">
-            <header className="sticky top-0 bg-inherit h-[80px]">
+            <header className="sticky top-0 bg-inherit h-[80px] z-50">
                 <Nav game={game} />
             </header>
             <main className="">
