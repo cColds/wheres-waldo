@@ -27,7 +27,7 @@ function Game({ game }: { game: GameData | null }) {
             {isTargetBoxActive && (
                 <div
                     style={{ left: targetBoxCoords.x, top: targetBoxCoords.y }}
-                    className={`absolute translate-x-[-50%] translate-y-[-50%] rounded-full w-[75px] h-[75px] z-10 border-slate-100/60 border-[1px] bg-black/30`}
+                    className="absolute translate-x-[-50%] translate-y-[-50%] rounded-full w-[75px] h-[75px] z-10 border-slate-100/60 border-[1px] bg-black/30"
                     onClick={handleTargetBoxClick}
                 >
                     <Dropdown items={game} />
