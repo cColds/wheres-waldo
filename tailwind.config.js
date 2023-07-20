@@ -21,6 +21,15 @@ export default {
             boxShadow: {
                 primary: "0 20px 60px -10px #d21e32",
             },
+            keyframes: {
+                "fade-in": {
+                    "0%": { opacity: 0 },
+                    "100%": { opacity: 1 },
+                },
+            },
+            animation: {
+                "fade-in": "fade-in ease-in-out 300ms",
+            },
         },
     },
     plugins: [],

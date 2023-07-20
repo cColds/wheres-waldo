@@ -1,5 +1,6 @@
 import GameData from "../types/gameData";
 import { useState, MouseEvent } from "react";
+import Dropdown from "../components/Dropdown";
 
 function Game({ game }: { game: GameData | null }) {
     const [isTargetBoxActive, setIsTargetBoxActive] = useState(false);
@@ -28,7 +29,9 @@ function Game({ game }: { game: GameData | null }) {
                     style={{ left: targetBoxCoords.x, top: targetBoxCoords.y }}
                     className={`absolute translate-x-[-50%] translate-y-[-50%] rounded-full w-[75px] h-[75px] z-10 border-slate-100/60 border-[1px] bg-black/30`}
                     onClick={handleTargetBoxClick}
-                />
+                >
+                    <Dropdown items={game} />
+                </div>
             )}
         </div>
     );
