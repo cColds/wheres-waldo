@@ -1,6 +1,33 @@
 import GameData from "../types/gameData";
 import { useState, MouseEvent, SyntheticEvent, useEffect } from "react";
 import Dropdown from "../components/Dropdown";
+import { FaCircleCheck, FaCircleExclamation } from "react-icons/fa6";
+
+type NotificationDetails = {
+    message: string;
+    isFound: boolean;
+};
+
+function Notification({
+    notificationDetails,
+}: {
+    notificationDetails: NotificationDetails | null;
+}) {
+    if (notificationDetails == null) return null;
+
+    const { message, isFound } = notificationDetails;
+    console.log(message, isFound);
+    return (
+        <div
+            className={`fixed z-50 p-3 ${
+                isFound ? "bg-green-800" : "bg-rose-800"
+            } rounded-lg left-[50%] top-[125px] translate-x-[-50%] translate-y-[-50%] shadow-lg flex items-center gap-3 text-light-background animate-fade-in`}
+        >
+            {isFound ? <FaCircleCheck /> : <FaCircleExclamation />}
+            <p className="text-center text-sm">{message}</p>
+        </div>
+    );
+}
 
 function Game({
     game,
@@ -19,6 +46,19 @@ function Game({
         width: 0,
         height: 0,
     });
+    const [shouldShowNotification, setShouldShowNotification] = useState(false);
+    const [notificationDetails, setNotificationDetails] =
+        useState<NotificationDetails | null>(null);
+
+    const handleNotification = (message: string, isFound: boolean) => {
+        setShouldShowNotification(true);
+        setNotificationDetails({ message, isFound });
+
+        setTimeout(() => {
+            setShouldShowNotification(false);
+            setNotificationDetails(null);
+        }, 1500);
+    };
 
     const handleImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
         setNaturalDimensions({
@@ -61,6 +101,10 @@ function Game({
     if (game == null) return null;
     return (
         <div className="relative">
+            {shouldShowNotification && (
+                <Notification notificationDetails={notificationDetails} />
+            )}
+
             <img
                 src={game.image}
                 alt="game"
@@ -80,6 +124,7 @@ function Game({
                         naturalDimensions={naturalDimensions}
                         imgDimensions={imgDimensions}
                         updateGameCharacters={updateGameCharacters}
+                        handleNotification={handleNotification}
                     />
                 </div>
             )}

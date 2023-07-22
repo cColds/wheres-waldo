@@ -29,12 +29,14 @@ function Dropdown({
     naturalDimensions,
     imgDimensions,
     updateGameCharacters,
+    handleNotification,
 }: {
     items: GameData;
     coords: Dimension;
     naturalDimensions: NaturalDimensions;
     imgDimensions: Dimension;
     updateGameCharacters: (updatedChars: GameData) => void;
+    handleNotification: (message: string, isFound: boolean) => void;
 }) {
     const handleCharacterClick = async (name: string) => {
         const docRef = doc(db, `${items.gameId}/characters`);
@@ -63,7 +65,7 @@ function Dropdown({
 
             return isWidthWithinCoord && isHeightWithinCoord;
         });
-
+        console.log(isValidCoord);
         if (isValidCoord) {
             const updatedCharacter = items.characters.map((char) => {
                 if (char.name === name) {
@@ -73,34 +75,41 @@ function Dropdown({
                 return char;
             });
             updateGameCharacters({ ...items, characters: updatedCharacter });
+            handleNotification(`You found ${name}!`, true);
+        } else {
+            handleNotification(`Try again`, false);
         }
     };
 
     return (
-        <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in">
-            {items.characters.map((character) => {
-                if (character.found) return null;
+        <>
+            <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in">
+                {items.characters.map((character) => {
+                    if (character.found) return null;
 
-                return (
-                    <li key={character.name} className="h-full">
-                        <button
-                            onClick={() => handleCharacterClick(character.name)}
-                            className="flex gap-3 hover:bg-dark-background/10 dark:hover:bg-white/10 w-full p-3 transition duration-300 ease-in-out"
-                        >
-                            <img
-                                src={character.url}
-                                alt="character"
-                                width="40px"
-                                height="40px"
-                                draggable="false"
-                                className="shadow-lg rounded-lg aspect-square"
-                            />
-                            <span>{character.name}</span>
-                        </button>
-                    </li>
-                );
-            })}
-        </ul>
+                    return (
+                        <li key={character.name} className="h-full">
+                            <button
+                                onClick={() =>
+                                    handleCharacterClick(character.name)
+                                }
+                                className="flex gap-3 hover:bg-dark-background/10 dark:hover:bg-white/10 w-full p-3 transition duration-300 ease-in-out"
+                            >
+                                <img
+                                    src={character.url}
+                                    alt="character"
+                                    width="40px"
+                                    height="40px"
+                                    draggable="false"
+                                    className="shadow-lg rounded-lg aspect-square"
+                                />
+                                <span>{character.name}</span>
+                            </button>
+                        </li>
+                    );
+                })}
+            </ul>
+        </>
     );
 }
 
