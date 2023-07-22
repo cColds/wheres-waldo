@@ -10,6 +10,10 @@ function App() {
     const location = useLocation();
     const [game, setGame] = useState<GameData | null>(null);
 
+    const updateGameCharacters = (updatedChars: GameData) => {
+        setGame(updatedChars);
+    };
+
     useEffect(() => {
         const { pathname } = location;
         const gamePath = games.find((game) => game.gameId === pathname);
@@ -17,7 +21,6 @@ function App() {
             setGame(null);
             return;
         }
-
         setGame(gamePath);
     }, [location]);
 
@@ -26,10 +29,18 @@ function App() {
             <header className="sticky top-0 bg-inherit h-[80px] z-50">
                 <Nav game={game} />
             </header>
-            <main className="">
+            <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/:gameId" element={<Game game={game} />} />
+                    <Route
+                        path="/:gameId"
+                        element={
+                            <Game
+                                game={game}
+                                updateGameCharacters={updateGameCharacters}
+                            />
+                        }
+                    />
                 </Routes>
             </main>
         </div>

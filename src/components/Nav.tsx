@@ -33,9 +33,19 @@ function Nav({ game }: { game: GameData | null }) {
                                         alt="character"
                                         width="40px"
                                         height="40px"
-                                        className="rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out"
+                                        className={`${
+                                            character.found ? "opacity-70" : ""
+                                        } rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out`}
                                     />
-                                    <p className="">{character.name}</p>
+                                    <p
+                                        className={`${
+                                            character.found
+                                                ? "line-through opacity-70"
+                                                : ""
+                                        }`}
+                                    >
+                                        {character.name}
+                                    </p>
                                 </div>
                             );
                         })}

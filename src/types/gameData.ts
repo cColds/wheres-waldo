@@ -6,6 +6,7 @@ type GameData = {
     characters: {
         name: string;
         url: string;
+        found: boolean;
     }[];
 };
 
