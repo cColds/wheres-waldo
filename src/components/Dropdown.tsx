@@ -98,7 +98,7 @@ function Dropdown({
                                 width="40px"
                                 height="40px"
                                 draggable="false"
-                                className="rounded-lg aspect-square"
+                                className="shadow-lg rounded-lg aspect-square"
                             />
                             <span>{character.name}</span>
                         </button>

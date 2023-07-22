@@ -35,7 +35,7 @@ function Nav({ game }: { game: GameData | null }) {
                                         height="40px"
                                         className={`${
                                             character.found ? "opacity-70" : ""
-                                        } rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out`}
+                                        } shadow-lg rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out`}
                                     />
                                     <p
                                         className={`${
@@ -55,7 +55,7 @@ function Nav({ game }: { game: GameData | null }) {
 
             <button
                 onClick={handleThemeToggle}
-                className="flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-100 dark:border-slate-800 border-[1px] dark:hover:bg-slate-900"
+                className="shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-100 dark:border-slate-800 border-[1px] dark:hover:bg-slate-900"
             >
                 {isDark ? (
                     <LuSun className="w-5 h-5" />
