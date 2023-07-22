@@ -65,7 +65,6 @@ function Dropdown({
         });
 
         if (isValidCoord) {
-            console.log(`Found ${name}`);
             const updatedCharacter = items.characters.map((char) => {
                 if (char.name === name) {
                     return { ...char, found: true };
@@ -73,12 +72,8 @@ function Dropdown({
 
                 return char;
             });
-            console.log(updatedCharacter);
             updateGameCharacters({ ...items, characters: updatedCharacter });
-        } else {
-            console.log("Try again!");
         }
-        console.log(naturalWidthCoord, naturalHeightCoord);
     };
 
     return (
