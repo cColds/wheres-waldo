@@ -82,7 +82,7 @@ function Dropdown({
     };
 
     return (
-        <ul className="absolute bg-dark-secondary rounded-lg right-[-150px] animate-fade-in">
+        <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in">
             {items.characters.map((character) => {
                 if (character.found) return null;
 
@@ -90,7 +90,7 @@ function Dropdown({
                     <li key={character.name} className="h-full">
                         <button
                             onClick={() => handleCharacterClick(character.name)}
-                            className="flex gap-3 hover:bg-white/30 w-full p-3 transition duration-300 ease-in-out"
+                            className="flex gap-3 hover:bg-dark-background/10 dark:hover:bg-white/10 w-full p-3 transition duration-300 ease-in-out"
                         >
                             <img
                                 src={character.url}
