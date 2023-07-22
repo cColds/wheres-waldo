@@ -1,5 +1,5 @@
 import GameData from "../types/gameData";
-import { useState, MouseEvent, SyntheticEvent } from "react";
+import { useState, MouseEvent, SyntheticEvent, useEffect } from "react";
 import Dropdown from "../components/Dropdown";
 
 function Game({
@@ -47,6 +47,16 @@ function Game({
             height: clientY - rect.top,
         });
     };
+
+    useEffect(() => {
+        const handleResize = () => setIsTargetBoxActive(false);
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     if (game == null) return null;
     return (
