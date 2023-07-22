@@ -34,6 +34,7 @@ function Dropdown({
     imgDimensions,
     updateGameCharacters,
     handleNotification,
+    toggleTargetBox,
 }: {
     items: GameData;
     coords: Dimension;
@@ -41,6 +42,7 @@ function Dropdown({
     imgDimensions: Dimension;
     updateGameCharacters: (updatedChars: GameData) => void;
     handleNotification: (message: string, isFound: boolean) => void;
+    toggleTargetBox: () => void;
 }) {
     const getUpdatedCharacter = (name: string) => {
         return items.characters.map((char) => {
@@ -98,11 +100,16 @@ function Dropdown({
         const isValidCoord = checkValidCoord(character);
         if (isValidCoord) {
             const updatedCharacter = getUpdatedCharacter(name);
-            updateGameCharacters({ ...items, characters: updatedCharacter });
+            updateGameCharacters({
+                ...items,
+                characters: updatedCharacter,
+            });
             handleNotification(`You found ${name}!`, true);
         } else {
             handleNotification(`Try again`, false);
         }
+
+        toggleTargetBox();
     };
 
     return (

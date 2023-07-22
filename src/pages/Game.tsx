@@ -1,7 +1,8 @@
 import GameData from "../types/gameData";
-import { useState, MouseEvent, SyntheticEvent, useEffect } from "react";
+import { useState, MouseEvent, SyntheticEvent, useEffect, useRef } from "react";
 import Dropdown from "../components/Dropdown";
 import { FaCircleCheck, FaCircleExclamation } from "react-icons/fa6";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 type NotificationDetails = {
     message: string;
@@ -16,7 +17,6 @@ function Notification({
     if (notificationDetails == null) return null;
 
     const { message, isFound } = notificationDetails;
-    console.log(message, isFound);
     return (
         <div
             className={`fixed z-50 p-3 ${
@@ -26,6 +26,53 @@ function Notification({
             {isFound ? <FaCircleCheck /> : <FaCircleExclamation />}
             <p className="text-center text-sm">{message}</p>
         </div>
+    );
+}
+
+type Characters = {
+    name: string;
+    url: string;
+    found: boolean;
+    marker: { x: number; y: number };
+}[];
+
+type Dimension = {
+    width: number;
+    height: number;
+};
+
+type NaturalDimensions = {
+    naturalWidth: number;
+    naturalHeight: number;
+};
+
+function Marker({
+    characters,
+    naturalDimensions,
+    imgDimensions,
+}: {
+    characters: Characters;
+    naturalDimensions: NaturalDimensions;
+    imgDimensions: Dimension;
+}) {
+    return (
+        <>
+            {characters.map((character) => {
+                if (!character.found) return null;
+                const { naturalWidth, naturalHeight } = naturalDimensions;
+                const { width, height } = imgDimensions;
+                const { x, y } = character.marker;
+                const coordX = (x / naturalWidth) * width;
+                const coordY = (y / naturalHeight) * height;
+                return (
+                    <FaMapMarkerAlt
+                        style={{ left: coordX, top: coordY }}
+                        className="absolute z-10 text-red-800 w-5 h-5 translate-x-[-50%] translate-y-[-50%]"
+                        key={character.name}
+                    />
+                );
+            })}
+        </>
     );
 }
 
@@ -71,8 +118,12 @@ function Game({
             height: e.currentTarget.clientHeight,
         });
     };
+
+    const toggleTargetBox = () => setIsTargetBoxActive(!isTargetBoxActive);
+
     const handleTargetBoxClick = (e: MouseEvent<HTMLImageElement>) => {
-        setIsTargetBoxActive(!isTargetBoxActive);
+        toggleTargetBox();
+        if (isTargetBoxActive) return;
 
         const { clientX, clientY } = e;
         const rect = e.currentTarget.getBoundingClientRect();
@@ -89,7 +140,11 @@ function Game({
     };
 
     useEffect(() => {
-        const handleResize = () => setIsTargetBoxActive(false);
+        const handleResize = () => {
+            setIsTargetBoxActive(false);
+            const { width, height } = imgDimensions;
+            setImgDimensions({ width, height });
+        };
 
         window.addEventListener("resize", handleResize);
 
@@ -104,6 +159,12 @@ function Game({
             {shouldShowNotification && (
                 <Notification notificationDetails={notificationDetails} />
             )}
+
+            <Marker
+                characters={game.characters}
+                naturalDimensions={naturalDimensions}
+                imgDimensions={imgDimensions}
+            />
 
             <img
                 src={game.image}
@@ -125,6 +186,7 @@ function Game({
                         imgDimensions={imgDimensions}
                         updateGameCharacters={updateGameCharacters}
                         handleNotification={handleNotification}
+                        toggleTargetBox={toggleTargetBox}
                     />
                 </div>
             )}

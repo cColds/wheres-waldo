@@ -7,6 +7,7 @@ type GameData = {
         name: string;
         url: string;
         found: boolean;
+        marker: { x: number; y: number };
     }[];
 };
 
