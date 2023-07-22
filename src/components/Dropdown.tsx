@@ -14,13 +14,17 @@ type NaturalDimensions = {
     naturalHeight: number;
 };
 
+type Coordinate = {
+    startWidth: number;
+    endWidth: number;
+    startHeight: number;
+    endHeight: number;
+};
+
+type Character = Coordinate[];
+
 type Characters = {
-    [key: string]: {
-        startWidth: number;
-        endWidth: number;
-        startHeight: number;
-        endHeight: number;
-    }[];
+    [key: string]: Coordinate[];
 };
 
 function Dropdown({
@@ -38,42 +42,62 @@ function Dropdown({
     updateGameCharacters: (updatedChars: GameData) => void;
     handleNotification: (message: string, isFound: boolean) => void;
 }) {
+    const getUpdatedCharacter = (name: string) => {
+        return items.characters.map((char) => {
+            if (char.name === name) {
+                return { ...char, found: true };
+            }
+
+            return char;
+        });
+    };
+
+    const getCalculatedHeight = () => {
+        const { naturalHeight } = naturalDimensions;
+        return Math.round(
+            (coords.height / imgDimensions.height) * naturalHeight
+        );
+    };
+
+    const getCalculatedWidth = () => {
+        const { naturalWidth } = naturalDimensions;
+        return Math.round((coords.width / imgDimensions.width) * naturalWidth);
+    };
+
+    const isWithinCoord = (coord: number, start: number, end: number) => {
+        return coord >= start && coord <= end;
+    };
+
+    const checkValidCoord = (character: Character) => {
+        const widthCoord = getCalculatedWidth();
+        const heightCoord = getCalculatedHeight();
+
+        return character.find(
+            ({ startWidth, endWidth, startHeight, endHeight }) => {
+                const isWidthWithin = isWithinCoord(
+                    widthCoord,
+                    startWidth,
+                    endWidth
+                );
+                const isHeightWithin = isWithinCoord(
+                    heightCoord,
+                    startHeight,
+                    endHeight
+                );
+                return isWidthWithin && isHeightWithin;
+            }
+        );
+    };
+
     const handleCharacterClick = async (name: string) => {
         const docRef = doc(db, `${items.gameId}/characters`);
         const docSnap = await getDoc(docRef);
-        if (!docSnap.exists()) return;
-
         const characters = docSnap.data() as Characters;
         const character = characters[name];
 
-        const { naturalWidth, naturalHeight } = naturalDimensions;
-        const naturalWidthCoord = Math.round(
-            (coords.width / imgDimensions.width) * naturalWidth
-        );
-        const naturalHeightCoord = Math.round(
-            (coords.height / imgDimensions.height) * naturalHeight
-        );
-
-        const isValidCoord = character.find((point) => {
-            const isWidthWithinCoord =
-                naturalWidthCoord >= point.startWidth &&
-                naturalWidthCoord <= point.endWidth;
-
-            const isHeightWithinCoord =
-                naturalHeightCoord >= point.startHeight &&
-                naturalHeightCoord <= point.endHeight;
-
-            return isWidthWithinCoord && isHeightWithinCoord;
-        });
-        console.log(isValidCoord);
+        const isValidCoord = checkValidCoord(character);
         if (isValidCoord) {
-            const updatedCharacter = items.characters.map((char) => {
-                if (char.name === name) {
-                    return { ...char, found: true };
-                }
-
-                return char;
-            });
+            const updatedCharacter = getUpdatedCharacter(name);
             updateGameCharacters({ ...items, characters: updatedCharacter });
             handleNotification(`You found ${name}!`, true);
         } else {
@@ -98,8 +122,8 @@ function Dropdown({
                                 <img
                                     src={character.url}
                                     alt="character"
-                                    width="40px"
-                                    height="40px"
+                                    width="40"
+                                    height="40"
                                     draggable="false"
                                     className="shadow-lg rounded-lg aspect-square"
                                 />
