@@ -1,5 +1,5 @@
 import GameData from "../types/gameData";
-import { useState, MouseEvent, SyntheticEvent, useEffect } from "react";
+import { useState, MouseEvent, SyntheticEvent, useEffect, useRef } from "react";
 import Dropdown from "../components/Dropdown";
 import Notification from "../components/Notification";
 import NotificationDetails from "../types/notificationDetails";
@@ -25,6 +25,7 @@ function Game({
     const [shouldShowNotification, setShouldShowNotification] = useState(false);
     const [notificationDetails, setNotificationDetails] =
         useState<NotificationDetails | null>(null);
+    const imgRef = useRef(null);
 
     const handleNotification = (message: string, isFound: boolean) => {
         setShouldShowNotification(true);
@@ -71,8 +72,11 @@ function Game({
     useEffect(() => {
         const handleResize = () => {
             setIsTargetBoxActive(false);
-            const { width, height } = imgDimension;
-            setImgDimension({ width, height });
+            if (imgRef.current == null) return;
+
+            const { clientWidth, clientHeight } = imgRef.current;
+
+            setImgDimension({ width: clientWidth, height: clientHeight });
         };
 
         window.addEventListener("resize", handleResize);
@@ -100,6 +104,7 @@ function Game({
                 alt="game"
                 onLoad={handleImageLoad}
                 onClick={handleTargetBoxClick}
+                ref={imgRef}
             />
 
             {isTargetBoxActive && (
