@@ -106,6 +106,7 @@ function Dropdown({
         const updatedCharacter = getUpdatedCharacter(name);
         if (isEveryCharFound(updatedCharacter)) {
             toggleIsGameActive();
+            document.body.style.overflow = "hidden";
         }
         updateGameCharacters({
             ...items,

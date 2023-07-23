@@ -7,9 +7,11 @@ import Timer from "./Timer";
 function Nav({
     game,
     isGameActive,
+    updateTotalTimeInSeconds,
 }: {
     game: GameData | null;
     isGameActive: boolean;
+    updateTotalTimeInSeconds: (seconds: number) => void;
 }) {
     const [isDark, setIsDark] = useTheme();
 
@@ -26,7 +28,12 @@ function Nav({
                 </p>
             </Link>
 
-            {game && <Timer isGameActive={isGameActive} />}
+            {game && (
+                <Timer
+                    isGameActive={isGameActive}
+                    updateTotalTimeInSeconds={updateTotalTimeInSeconds}
+                />
+            )}
 
             {game && (
                 <div>

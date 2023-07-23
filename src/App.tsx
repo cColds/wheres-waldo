@@ -10,6 +10,10 @@ function App() {
     const location = useLocation();
     const [game, setGame] = useState<GameData | null>(null);
     const [isGameActive, setIsGameActive] = useState(false);
+    const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
+
+    const updateTotalTimeInSeconds = (seconds: number) =>
+        setTotalTimeInSeconds(seconds);
 
     const toggleIsGameActive = () => setIsGameActive(!isGameActive);
 
@@ -32,7 +36,11 @@ function App() {
     return (
         <div className="bg-inherit">
             <header className="sticky top-0 bg-inherit h-[80px] z-50">
-                <Nav game={game} isGameActive={isGameActive} />
+                <Nav
+                    game={game}
+                    isGameActive={isGameActive}
+                    updateTotalTimeInSeconds={updateTotalTimeInSeconds}
+                />
             </header>
             <main>
                 <Routes>
@@ -44,6 +52,8 @@ function App() {
                                 game={game}
                                 updateGameCharacters={updateGameCharacters}
                                 toggleIsGameActive={toggleIsGameActive}
+                                isGameActive={isGameActive}
+                                totalTimeInSeconds={totalTimeInSeconds}
                             />
                         }
                     />

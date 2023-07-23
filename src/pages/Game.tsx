@@ -4,15 +4,20 @@ import Dropdown from "../components/Dropdown";
 import Notification from "../components/Notification";
 import NotificationDetails from "../types/notificationDetails";
 import Marker from "../components/Marker";
+import WinModal from "../components/WinModal";
 
 function Game({
     game,
     updateGameCharacters,
     toggleIsGameActive,
+    isGameActive,
+    totalTimeInSeconds,
 }: {
     game: GameData | null;
     updateGameCharacters: (updatedChars: GameData) => void;
     toggleIsGameActive: () => void;
+    isGameActive: boolean;
+    totalTimeInSeconds: number;
 }) {
     const [isTargetBoxActive, setIsTargetBoxActive] = useState(false);
     const [coords, setCoords] = useState({ width: 0, height: 0 });
@@ -27,6 +32,7 @@ function Game({
     const [shouldShowNotification, setShouldShowNotification] = useState(false);
     const [notificationDetails, setNotificationDetails] =
         useState<NotificationDetails | null>(null);
+
     const imgRef = useRef(null);
 
     const handleNotification = (message: string, isFound: boolean) => {
@@ -93,6 +99,10 @@ function Game({
         <div className="relative">
             {shouldShowNotification && (
                 <Notification notificationDetails={notificationDetails} />
+            )}
+
+            {!isGameActive && (
+                <WinModal totalTimeInSeconds={totalTimeInSeconds} />
             )}
 
             <Marker
