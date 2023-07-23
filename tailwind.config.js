@@ -30,6 +30,10 @@ export default {
             animation: {
                 "fade-in": "fade-in ease-in-out 300ms",
             },
+
+            fontFamily: {
+                "nunito-bold": ["Nunito-Bold", "system-ui"],
+            },
         },
     },
     plugins: [],

@@ -22,6 +22,12 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: Nunito-Bold;
+    src: url(assets/fonts/Nunito-Bold.ttf);
+    font-display: swap;
+}
+
 html,
 body,
 #root {
