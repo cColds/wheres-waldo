@@ -4,7 +4,13 @@ import { LuSun, LuMoonStar } from "react-icons/lu";
 import GameData from "../types/gameData";
 import Timer from "./Timer";
 
-function Nav({ game }: { game: GameData | null }) {
+function Nav({
+    game,
+    isGameActive,
+}: {
+    game: GameData | null;
+    isGameActive: boolean;
+}) {
     const [isDark, setIsDark] = useTheme();
 
     function handleThemeToggle() {
@@ -20,7 +26,7 @@ function Nav({ game }: { game: GameData | null }) {
                 </p>
             </Link>
 
-            {<Timer />}
+            {game && <Timer isGameActive={isGameActive} />}
 
             {game && (
                 <div>

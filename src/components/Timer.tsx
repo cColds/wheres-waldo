@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Timer = () => {
+const Timer = ({ isGameActive }: { isGameActive: boolean }) => {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [ms, setMs] = useState(0);
@@ -24,8 +24,12 @@ const Timer = () => {
             });
         }, 15);
 
+        if (!isGameActive) {
+            clearInterval(interval);
+        }
+
         return () => clearInterval(interval);
-    }, [minutes, seconds]);
+    }, [minutes, seconds, isGameActive]);
 
     return (
         <p className="text-lg">

@@ -8,9 +8,11 @@ import Marker from "../components/Marker";
 function Game({
     game,
     updateGameCharacters,
+    toggleIsGameActive,
 }: {
     game: GameData | null;
     updateGameCharacters: (updatedChars: GameData) => void;
+    toggleIsGameActive: () => void;
 }) {
     const [isTargetBoxActive, setIsTargetBoxActive] = useState(false);
     const [coords, setCoords] = useState({ width: 0, height: 0 });
@@ -121,6 +123,7 @@ function Game({
                         updateGameCharacters={updateGameCharacters}
                         handleNotification={handleNotification}
                         toggleTargetBox={toggleTargetBox}
+                        toggleIsGameActive={toggleIsGameActive}
                     />
                 </div>
             )}

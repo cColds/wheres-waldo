@@ -1,13 +1,7 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Dimension from "../types/dimension";
 import NaturalDimension from "../types/naturalDimension";
-
-type Characters = {
-    name: string;
-    url: string;
-    found: boolean;
-    marker: { x: number; y: number };
-}[];
+import Characters from "../types/characters";
 
 function Marker({
     characters,

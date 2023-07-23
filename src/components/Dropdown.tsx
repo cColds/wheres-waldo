@@ -3,6 +3,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import app from "../firebase";
 import Dimension from "../types/dimension";
 import NaturalDimension from "../types/naturalDimension";
+import Characters from "../types/characters";
 
 const db = getFirestore(app);
 
@@ -13,9 +14,9 @@ type Coordinate = {
     endHeight: number;
 };
 
-type Character = Coordinate[];
+type CharacterCoord = Coordinate[];
 
-type Characters = {
+type CharactersCoord = {
     [key: string]: Coordinate[];
 };
 
@@ -27,6 +28,7 @@ function Dropdown({
     updateGameCharacters,
     handleNotification,
     toggleTargetBox,
+    toggleIsGameActive,
 }: {
     items: GameData;
     coords: Dimension;
@@ -35,6 +37,7 @@ function Dropdown({
     updateGameCharacters: (updatedChars: GameData) => void;
     handleNotification: (message: string, isFound: boolean) => void;
     toggleTargetBox: () => void;
+    toggleIsGameActive: () => void;
 }) {
     const getUpdatedCharacter = (name: string) => {
         return items.characters.map((char) => {
@@ -62,7 +65,7 @@ function Dropdown({
         return coord >= start && coord <= end;
     };
 
-    const checkValidCoord = (character: Character) => {
+    const checkValidCoord = (character: CharacterCoord) => {
         const widthCoord = getCalculatedWidth();
         const heightCoord = getCalculatedHeight();
 
@@ -83,25 +86,32 @@ function Dropdown({
         );
     };
 
+    const isEveryCharFound = (chars: Characters) =>
+        chars.every((char) => char.found);
+
     const handleCharacterClick = async (name: string) => {
+        toggleTargetBox();
+
         const docRef = doc(db, `${items.gameId}/characters`);
         const docSnap = await getDoc(docRef);
-        const characters = docSnap.data() as Characters;
+        const characters = docSnap.data() as CharactersCoord;
         const character = characters[name];
 
         const isValidCoord = checkValidCoord(character);
-        if (isValidCoord) {
-            const updatedCharacter = getUpdatedCharacter(name);
-            updateGameCharacters({
-                ...items,
-                characters: updatedCharacter,
-            });
-            handleNotification(`You found ${name}!`, true);
-        } else {
+        if (!isValidCoord) {
             handleNotification(`Try again`, false);
+            return;
         }
 
-        toggleTargetBox();
+        const updatedCharacter = getUpdatedCharacter(name);
+        if (isEveryCharFound(updatedCharacter)) {
+            toggleIsGameActive();
+        }
+        updateGameCharacters({
+            ...items,
+            characters: updatedCharacter,
+        });
+        handleNotification(`You found ${name}!`, true);
     };
 
     return (
