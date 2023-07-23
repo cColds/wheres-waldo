@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useTheme from "./hooks/useTheme";
 import { LuSun, LuMoonStar } from "react-icons/lu";
 import GameData from "../types/gameData";
+import Timer from "./Timer";
 
 function Nav({ game }: { game: GameData | null }) {
     const [isDark, setIsDark] = useTheme();
@@ -18,6 +19,8 @@ function Nav({ game }: { game: GameData | null }) {
                     <span className="text-primary">Hunt</span>
                 </p>
             </Link>
+
+            {<Timer />}
 
             {game && (
                 <div>
