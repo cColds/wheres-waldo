@@ -1,18 +1,10 @@
 import GameData from "../types/gameData";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import app from "../firebase";
+import Dimension from "../types/dimension";
+import NaturalDimension from "../types/naturalDimension";
 
 const db = getFirestore(app);
-
-type Dimension = {
-    width: number;
-    height: number;
-};
-
-type NaturalDimensions = {
-    naturalWidth: number;
-    naturalHeight: number;
-};
 
 type Coordinate = {
     startWidth: number;
@@ -30,16 +22,16 @@ type Characters = {
 function Dropdown({
     items,
     coords,
-    naturalDimensions,
-    imgDimensions,
+    naturalDimension,
+    imgDimension,
     updateGameCharacters,
     handleNotification,
     toggleTargetBox,
 }: {
     items: GameData;
     coords: Dimension;
-    naturalDimensions: NaturalDimensions;
-    imgDimensions: Dimension;
+    naturalDimension: NaturalDimension;
+    imgDimension: Dimension;
     updateGameCharacters: (updatedChars: GameData) => void;
     handleNotification: (message: string, isFound: boolean) => void;
     toggleTargetBox: () => void;
@@ -55,15 +47,15 @@ function Dropdown({
     };
 
     const getCalculatedHeight = () => {
-        const { naturalHeight } = naturalDimensions;
+        const { naturalHeight } = naturalDimension;
         return Math.round(
-            (coords.height / imgDimensions.height) * naturalHeight
+            (coords.height / imgDimension.height) * naturalHeight
         );
     };
 
     const getCalculatedWidth = () => {
-        const { naturalWidth } = naturalDimensions;
-        return Math.round((coords.width / imgDimensions.width) * naturalWidth);
+        const { naturalWidth } = naturalDimension;
+        return Math.round((coords.width / imgDimension.width) * naturalWidth);
     };
 
     const isWithinCoord = (coord: number, start: number, end: number) => {

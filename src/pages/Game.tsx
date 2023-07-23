@@ -1,80 +1,9 @@
 import GameData from "../types/gameData";
-import { useState, MouseEvent, SyntheticEvent, useEffect, useRef } from "react";
+import { useState, MouseEvent, SyntheticEvent, useEffect } from "react";
 import Dropdown from "../components/Dropdown";
-import { FaCircleCheck, FaCircleExclamation } from "react-icons/fa6";
-import { FaMapMarkerAlt } from "react-icons/fa";
-
-type NotificationDetails = {
-    message: string;
-    isFound: boolean;
-};
-
-function Notification({
-    notificationDetails,
-}: {
-    notificationDetails: NotificationDetails | null;
-}) {
-    if (notificationDetails == null) return null;
-
-    const { message, isFound } = notificationDetails;
-    return (
-        <div
-            className={`fixed z-50 p-3 ${
-                isFound ? "bg-green-800" : "bg-rose-800"
-            } rounded-lg left-[50%] top-[125px] translate-x-[-50%] translate-y-[-50%] shadow-lg flex items-center gap-3 text-light-background animate-fade-in`}
-        >
-            {isFound ? <FaCircleCheck /> : <FaCircleExclamation />}
-            <p className="text-center text-sm">{message}</p>
-        </div>
-    );
-}
-
-type Characters = {
-    name: string;
-    url: string;
-    found: boolean;
-    marker: { x: number; y: number };
-}[];
-
-type Dimension = {
-    width: number;
-    height: number;
-};
-
-type NaturalDimensions = {
-    naturalWidth: number;
-    naturalHeight: number;
-};
-
-function Marker({
-    characters,
-    naturalDimensions,
-    imgDimensions,
-}: {
-    characters: Characters;
-    naturalDimensions: NaturalDimensions;
-    imgDimensions: Dimension;
-}) {
-    return (
-        <>
-            {characters.map((character) => {
-                if (!character.found) return null;
-                const { naturalWidth, naturalHeight } = naturalDimensions;
-                const { width, height } = imgDimensions;
-                const { x, y } = character.marker;
-                const coordX = (x / naturalWidth) * width;
-                const coordY = (y / naturalHeight) * height;
-                return (
-                    <FaMapMarkerAlt
-                        style={{ left: coordX, top: coordY }}
-                        className="absolute z-10 text-red-800 w-5 h-5 translate-x-[-50%] translate-y-[-50%]"
-                        key={character.name}
-                    />
-                );
-            })}
-        </>
-    );
-}
+import Notification from "../components/Notification";
+import NotificationDetails from "../types/notificationDetails";
+import Marker from "../components/Marker";
 
 function Game({
     game,
@@ -85,11 +14,11 @@ function Game({
 }) {
     const [isTargetBoxActive, setIsTargetBoxActive] = useState(false);
     const [coords, setCoords] = useState({ width: 0, height: 0 });
-    const [naturalDimensions, setNaturalDimensions] = useState({
+    const [naturalDimension, setNaturalDimension] = useState({
         naturalWidth: 0,
         naturalHeight: 0,
     });
-    const [imgDimensions, setImgDimensions] = useState({
+    const [imgDimension, setImgDimension] = useState({
         width: 0,
         height: 0,
     });
@@ -108,12 +37,12 @@ function Game({
     };
 
     const handleImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
-        setNaturalDimensions({
+        setNaturalDimension({
             naturalWidth: e.currentTarget.naturalWidth,
             naturalHeight: e.currentTarget.naturalHeight,
         });
 
-        setImgDimensions({
+        setImgDimension({
             width: e.currentTarget.clientWidth,
             height: e.currentTarget.clientHeight,
         });
@@ -128,7 +57,7 @@ function Game({
         const { clientX, clientY } = e;
         const rect = e.currentTarget.getBoundingClientRect();
 
-        setImgDimensions({
+        setImgDimension({
             width: e.currentTarget.clientWidth,
             height: e.currentTarget.clientHeight,
         });
@@ -142,8 +71,8 @@ function Game({
     useEffect(() => {
         const handleResize = () => {
             setIsTargetBoxActive(false);
-            const { width, height } = imgDimensions;
-            setImgDimensions({ width, height });
+            const { width, height } = imgDimension;
+            setImgDimension({ width, height });
         };
 
         window.addEventListener("resize", handleResize);
@@ -162,8 +91,8 @@ function Game({
 
             <Marker
                 characters={game.characters}
-                naturalDimensions={naturalDimensions}
-                imgDimensions={imgDimensions}
+                naturalDimension={naturalDimension}
+                imgDimension={imgDimension}
             />
 
             <img
@@ -182,8 +111,8 @@ function Game({
                     <Dropdown
                         items={game}
                         coords={coords}
-                        naturalDimensions={naturalDimensions}
-                        imgDimensions={imgDimensions}
+                        naturalDimension={naturalDimension}
+                        imgDimension={imgDimension}
                         updateGameCharacters={updateGameCharacters}
                         handleNotification={handleNotification}
                         toggleTargetBox={toggleTargetBox}
