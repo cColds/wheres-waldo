@@ -1,7 +1,8 @@
-import { setDoc, doc, getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import app from "../firebase";
 import { ChangeEvent, FormEvent, useState } from "react";
 import GameData from "../types/gameData";
+import { useNavigate } from "react-router-dom";
 
 const db = getFirestore(app);
 
@@ -13,22 +14,28 @@ function WinModal({
     game: GameData;
 }) {
     const [username, setUsername] = useState("");
+    const navigate = useNavigate();
 
     const handleLeaderboardSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const leaderboardRef = doc(db, `leaderboard/${game.gameId}`);
-        await setDoc(
-            leaderboardRef,
-            {
-                [crypto.randomUUID()]: {
-                    username,
-                    time: totalTimeInSeconds,
-                    date: new Date(),
-                },
-            },
-            { merge: true }
+        const leaderboardRef = collection(
+            db,
+            `leaderboard/${game.gameId}/scores`
         );
+
+        const leaderboardScore = {
+            username,
+            time: totalTimeInSeconds,
+            date: new Date(),
+        };
+
+        try {
+            await addDoc(leaderboardRef, leaderboardScore);
+            navigate("/leaderboard");
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) =>
