@@ -23,7 +23,7 @@ function App() {
 
     useEffect(() => {
         const { pathname } = location;
-        const gamePath = games.find((game) => game.gameId === pathname);
+        const gamePath = games.find((game) => `/${game.gameId}` === pathname);
         if (!gamePath) {
             setGame(null);
             setIsGameActive(false);

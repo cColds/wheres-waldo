@@ -21,7 +21,7 @@ function Card() {
                                 {game.title}
                             </h2>
                             <Link
-                                to={game.gameId}
+                                to={`/${game.gameId}`}
                                 className="rounded-lg bg-primary text-light-background px-6 py-2 hover:shadow-primary hover:translate-y-[-3px] transition ease-in-out duration-300 active:scale-95"
                             >
                                 Start Game
