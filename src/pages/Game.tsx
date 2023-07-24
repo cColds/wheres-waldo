@@ -102,7 +102,7 @@ function Game({
             )}
 
             {!isGameActive && (
-                <WinModal totalTimeInSeconds={totalTimeInSeconds} />
+                <WinModal totalTimeInSeconds={totalTimeInSeconds} game={game} />
             )}
 
             <Marker
