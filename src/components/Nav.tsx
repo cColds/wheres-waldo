@@ -78,6 +78,7 @@ function Nav({
             <button
                 onClick={handleThemeToggle}
                 className="shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-100 dark:border-slate-800 border-[1px] dark:hover:bg-slate-900"
+                aria-label="toggle theme"
             >
                 {isDark ? (
                     <LuSun className="w-5 h-5" />
