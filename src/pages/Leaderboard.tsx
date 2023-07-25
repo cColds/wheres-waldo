@@ -88,7 +88,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                                 <td className="p-4 overflow-hidden text-ellipsis max-w-[150px]">
                                     {score.username}
                                 </td>
-                                <td className="p-4">{score.time}</td>
+                                <td className="p-4">{score.time.toFixed(2)}</td>
                                 <td className="p-4">
                                     {format(score.date.toDate(), "LLL d, y")}
                                 </td>
