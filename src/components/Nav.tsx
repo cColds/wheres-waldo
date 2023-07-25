@@ -28,6 +28,12 @@ function Nav({
                 </p>
             </Link>
 
+            {!isGameActive && (
+                <Link to="leaderboard" className="text-lg ml-auto mr-4">
+                    Leaderboard
+                </Link>
+            )}
+
             {game && (
                 <Timer
                     isGameActive={isGameActive}

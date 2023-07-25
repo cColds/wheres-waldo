@@ -6,11 +6,14 @@ import Game from "./pages/Game";
 import { useEffect, useState } from "react";
 import games from "./gameData";
 import GameData from "./types/gameData";
+import Leaderboard from "./pages/Leaderboard";
+
 function App() {
     const location = useLocation();
     const [game, setGame] = useState<GameData | null>(null);
     const [isGameActive, setIsGameActive] = useState(false);
     const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
+    const [lastPlayedGame, setLastPlayedGame] = useState<GameData | null>(null);
 
     const updateTotalTimeInSeconds = (seconds: number) =>
         setTotalTimeInSeconds(seconds);
@@ -27,9 +30,11 @@ function App() {
         if (!gamePath) {
             setGame(null);
             setIsGameActive(false);
+            document.body.style.overflow = "";
             return;
         }
         setGame(gamePath);
+        setLastPlayedGame(gamePath);
         setIsGameActive(true);
     }, [location]);
 
@@ -55,6 +60,13 @@ function App() {
                                 isGameActive={isGameActive}
                                 totalTimeInSeconds={totalTimeInSeconds}
                             />
+                        }
+                    />
+
+                    <Route
+                        path="/leaderboard"
+                        element={
+                            <Leaderboard lastPlayedGame={lastPlayedGame} />
                         }
                     />
                 </Routes>
