@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import games from "./gameData";
 import GameData from "./types/gameData";
 import Leaderboard from "./pages/Leaderboard";
-import { format } from "date-fns";
 
 function App() {
     const location = useLocation();
