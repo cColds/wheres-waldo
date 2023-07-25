@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import games from "../gameData";
 import GameData from "../types/gameData";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+    Timestamp,
+    collection,
+    getDocs,
+    getFirestore,
+} from "firebase/firestore";
 import app from "../firebase";
+import format from "date-fns/format";
 
 const db = getFirestore(app);
 
 type Score = {
     username: string;
     time: number;
-    date: Date;
+    date: Timestamp;
 };
 
 function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
@@ -35,7 +41,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
 
         fetchGameScores()
             .then((data) => setScores(data))
-            .catch((e) => console.error(e));
+            .catch(console.error);
     }, []);
 
     return (
@@ -43,10 +49,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
             <h1 className="text-3xl font-nunito-bold">Leaderboard</h1>
             {games.map((game) => {
                 return (
-                    <button
-                        key={game.id}
-                        onClick={() => console.log("clicked")}
-                    >
+                    <button key={game.id}>
                         <div className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer">
                             <img
                                 src={game.image}
@@ -86,7 +89,9 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                                     {score.username}
                                 </td>
                                 <td className="p-4">{score.time}</td>
-                                <td className="p-4">{score.date.toString()}</td>
+                                <td className="p-4">
+                                    {format(score.date.toDate(), "LLL d, y")}
+                                </td>
                             </tr>
                         );
                     })}

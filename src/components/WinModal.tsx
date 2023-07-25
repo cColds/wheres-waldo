@@ -1,4 +1,9 @@
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+} from "firebase/firestore";
 import app from "../firebase";
 import { ChangeEvent, FormEvent, useState } from "react";
 import GameData from "../types/gameData";
@@ -27,9 +32,8 @@ function WinModal({
         const leaderboardScore = {
             username,
             time: totalTimeInSeconds,
-            date: new Date(),
+            date: serverTimestamp(),
         };
-
         try {
             await addDoc(leaderboardRef, leaderboardScore);
             navigate("/leaderboard");
