@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import games from "./gameData";
 import GameData from "./types/gameData";
 import Leaderboard from "./pages/Leaderboard";
+import NotFound from "./pages/NotFound";
 
 function App() {
     const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
 
     useEffect(() => {
         const { pathname } = location;
+
         const gamePath = games.find((game) => `/${game.gameId}` === pathname);
         if (!gamePath) {
             setGame(null);
@@ -69,6 +71,8 @@ function App() {
                             <Leaderboard lastPlayedGame={lastPlayedGame} />
                         }
                     />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/404" element={<NotFound />} />
                 </Routes>
             </main>
         </div>

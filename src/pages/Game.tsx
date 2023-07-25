@@ -5,6 +5,8 @@ import Notification from "../components/Notification";
 import NotificationDetails from "../types/notificationDetails";
 import Marker from "../components/Marker";
 import WinModal from "../components/WinModal";
+import games from "../gameData";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Game({
     game,
@@ -19,6 +21,9 @@ function Game({
     isGameActive: boolean;
     totalTimeInSeconds: number;
 }) {
+    const { gameId } = useParams();
+    const navigate = useNavigate();
+
     const [isTargetBoxActive, setIsTargetBoxActive] = useState(false);
     const [coords, setCoords] = useState({ width: 0, height: 0 });
     const [naturalDimension, setNaturalDimension] = useState({
@@ -86,6 +91,14 @@ function Game({
 
             setImgDimension({ width: clientWidth, height: clientHeight });
         };
+
+        const isValidUrl = () => {
+            return games.find((game) => game.gameId === gameId);
+        };
+
+        if (!isValidUrl()) {
+            navigate("/404", { replace: true });
+        }
 
         window.addEventListener("resize", handleResize);
 
