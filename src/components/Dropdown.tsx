@@ -62,7 +62,7 @@ function Dropdown({
     };
 
     const isWithinCoord = (coord: number, start: number, end: number) => {
-        return coord >= start && coord <= end;
+        return Math.abs(coord - start) <= 75 || Math.abs(coord - end) <= 75;
     };
 
     const checkValidCoord = (character: CharacterCoord) => {
