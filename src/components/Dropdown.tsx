@@ -117,7 +117,7 @@ function Dropdown({
 
     return (
         <>
-            <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in">
+            <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in w-[150px]">
                 {items.characters.map((character) => {
                     if (character.found) return null;
 
