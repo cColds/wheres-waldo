@@ -109,7 +109,7 @@ function Game({
 
     if (game == null) return null;
     return (
-        <div className="relative">
+        <div className="relative overflow-hidden">
             {shouldShowNotification && (
                 <Notification notificationDetails={notificationDetails} />
             )}
