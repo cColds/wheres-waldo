@@ -22,6 +22,10 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
     const [gameToShow, setGameToShow] = useState(lastPlayedGame ?? games[0]);
     const [scores, setScores] = useState<Score[] | null>(null);
 
+    const handleMapClick = (game: GameData) => {
+        setGameToShow(game);
+    };
+
     useEffect(() => {
         const fetchGameScores = async () => {
             const scoresRef = collection(
@@ -42,14 +46,14 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
         fetchGameScores()
             .then((data) => setScores(data))
             .catch(console.error);
-    }, []);
+    }, [gameToShow]);
 
     return (
         <div className="flex flex-col items-center p-4 gap-6">
             <h1 className="text-3xl font-nunito-bold">Leaderboard</h1>
             {games.map((game) => {
                 return (
-                    <button key={game.id}>
+                    <button key={game.id} onClick={() => handleMapClick(game)}>
                         <div className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer">
                             <img
                                 src={game.image}
