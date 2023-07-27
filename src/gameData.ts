@@ -25,6 +25,33 @@ const games = [
             },
         ],
     },
+
+    {
+        title: "Super Mario Bros",
+        image: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fbackground%2Fsuper-mario-bros.webp?alt=media&token=4e5d2551-7f70-4dad-a59b-b6bbdf40ecda",
+        gameId: "game-2",
+        id: crypto.randomUUID(),
+        characters: [
+            {
+                name: "Fire Mario",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Ffire-mario.png?alt=media&token=e7c7c487-efe0-4099-90ea-55dfe26b77c5",
+                found: false,
+                marker: { x: 3000, y: 2270 },
+            },
+            {
+                name: "King Boo",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fking-boo.webp?alt=media&token=bfdaec8b-c672-413b-923b-4463c99982b0",
+                found: false,
+                marker: { x: 1102, y: 2722 },
+            },
+            {
+                name: "Waluigi",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fwaluigi.png?alt=media&token=8431054c-5271-4d54-91f7-dc2c5bcba804",
+                found: false,
+                marker: { x: 2541, y: 4738 },
+            },
+        ],
+    },
 ];
 
 export default games;

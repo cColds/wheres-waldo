@@ -65,13 +65,16 @@ function Dropdown({
     };
 
     const isWithinCoord = (coord: number, start: number, end: number) => {
-        return Math.abs(coord - start) <= 75 || Math.abs(coord - end) <= 75;
+        return (
+            Math.abs(coord - start) <= 75 ||
+            Math.abs(coord - end) <= 75 ||
+            (coord >= start && coord <= end)
+        );
     };
 
     const checkValidCoord = (character: CharacterCoord) => {
         const widthCoord = getCalculatedWidth();
         const heightCoord = getCalculatedHeight();
-
         return character.find(
             ({ startWidth, endWidth, startHeight, endHeight }) => {
                 const isWidthWithin = isWithinCoord(
