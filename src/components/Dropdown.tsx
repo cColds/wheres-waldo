@@ -4,6 +4,7 @@ import app from "../firebase";
 import Dimension from "../types/dimension";
 import NaturalDimension from "../types/naturalDimension";
 import Characters from "../types/characters";
+import DropdownPositions from "../types/dropdownPositions";
 
 const db = getFirestore(app);
 
@@ -29,6 +30,7 @@ function Dropdown({
     handleNotification,
     toggleTargetBox,
     toggleIsGameActive,
+    dropdownPosition,
 }: {
     items: GameData;
     coords: Dimension;
@@ -38,6 +40,7 @@ function Dropdown({
     handleNotification: (message: string, isFound: boolean) => void;
     toggleTargetBox: () => void;
     toggleIsGameActive: () => void;
+    dropdownPosition: DropdownPositions;
 }) {
     const getUpdatedCharacter = (name: string) => {
         return items.characters.map((char) => {
@@ -117,7 +120,10 @@ function Dropdown({
 
     return (
         <>
-            <ul className="absolute bg-light-background dark:bg-dark-secondary rounded-lg right-[-150px] animate-fade-in w-[150px]">
+            <ul
+                style={dropdownPosition}
+                className="absolute bg-light-background dark:bg-dark-secondary rounded-lg animate-fade-in w-[150px]"
+            >
                 {items.characters.map((character) => {
                     if (character.found) return null;
 

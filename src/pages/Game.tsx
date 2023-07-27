@@ -7,6 +7,8 @@ import Marker from "../components/Marker";
 import WinModal from "../components/WinModal";
 import games from "../gameData";
 import { useNavigate, useParams } from "react-router-dom";
+import DropdownPositions from "../types/dropdownPositions";
+import isEmptyObj from "../utils/isEmptyObj";
 
 function Game({
     game,
@@ -37,6 +39,38 @@ function Game({
     const [shouldShowNotification, setShouldShowNotification] = useState(false);
     const [notificationDetails, setNotificationDetails] =
         useState<NotificationDetails | null>(null);
+    const [dropdownPosition, setDropdownPosition] = useState<DropdownPositions>(
+        { right: "-150px" }
+    );
+
+    const getDropdownPosition = (
+        coordWidth: number,
+        coordHeight: number,
+        imgWidth: number,
+        imgHeight: number
+    ) => {
+        const widthDiff = Math.abs(coordWidth - imgWidth);
+        const heightDiff = Math.abs(coordHeight - imgHeight);
+        const TARGET_BOX_RADIUS = 75 / 2;
+        const DROPDOWN_WIDTH = 150;
+        const DROPDOWN_HEIGHT = 200;
+        const widthBoundary = DROPDOWN_WIDTH + TARGET_BOX_RADIUS;
+        const heightBoundary = DROPDOWN_HEIGHT + TARGET_BOX_RADIUS;
+
+        const isCloseToRightBoundary = widthDiff < widthBoundary;
+        const isCloseToBottomBoundary = heightDiff < heightBoundary;
+        const isCloseToTopBoundary = Math.abs(heightDiff - imgHeight) < 30;
+        const isCloseToLeftBoundary = Math.abs(widthDiff - imgWidth) < 30;
+
+        const dropdownPosition: DropdownPositions = {};
+        if (isCloseToTopBoundary) dropdownPosition.bottom = "-180px";
+        if (isCloseToBottomBoundary) dropdownPosition.top = "-180px";
+        if (isCloseToLeftBoundary) dropdownPosition.right = "-150px";
+        if (isCloseToRightBoundary) dropdownPosition.left = "-150px";
+
+        const defaultPos = { right: "-150px" };
+        return isEmptyObj(dropdownPosition) ? defaultPos : dropdownPosition;
+    };
 
     const imgRef = useRef(null);
 
@@ -70,15 +104,23 @@ function Game({
 
         const { clientX, clientY } = e;
         const rect = e.currentTarget.getBoundingClientRect();
+        const imgWidth = e.currentTarget.clientWidth;
+        const imgHeight = e.currentTarget.clientHeight;
+        const coordWidth = clientX - rect.left;
+        const coordHeight = clientY - rect.top;
+
+        setDropdownPosition(
+            getDropdownPosition(coordWidth, coordHeight, imgWidth, imgHeight)
+        );
 
         setImgDimension({
-            width: e.currentTarget.clientWidth,
-            height: e.currentTarget.clientHeight,
+            width: imgWidth,
+            height: imgHeight,
         });
 
         setCoords({
-            width: clientX - rect.left,
-            height: clientY - rect.top,
+            width: coordWidth,
+            height: coordHeight,
         });
     };
 
@@ -106,7 +148,6 @@ function Game({
             window.removeEventListener("resize", handleResize);
         };
     }, []);
-
     if (game == null) return null;
     return (
         <div className="relative overflow-hidden">
@@ -147,6 +188,7 @@ function Game({
                         handleNotification={handleNotification}
                         toggleTargetBox={toggleTargetBox}
                         toggleIsGameActive={toggleIsGameActive}
+                        dropdownPosition={dropdownPosition}
                     />
                     <div className="rounded-full w-1 h-1 absolute bg-red-600 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]" />
                 </div>
