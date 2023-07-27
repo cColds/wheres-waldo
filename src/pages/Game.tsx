@@ -43,6 +43,15 @@ function Game({
         { right: "-150px" }
     );
 
+    const getCharsAliveAmount = () => {
+        if (game == null) return null;
+        const { characters } = game;
+
+        const charsAlive = characters.filter((char) => !char.found);
+
+        return charsAlive.length;
+    };
+
     const getDropdownPosition = (
         coordWidth: number,
         coordHeight: number,
@@ -53,9 +62,12 @@ function Game({
         const heightDiff = Math.abs(coordHeight - imgHeight);
         const TARGET_BOX_RADIUS = 75 / 2;
         const DROPDOWN_WIDTH = 150;
-        const DROPDOWN_HEIGHT = 200;
+        const DROPDOWN_HEIGHT = 195;
         const widthBoundary = DROPDOWN_WIDTH + TARGET_BOX_RADIUS;
         const heightBoundary = DROPDOWN_HEIGHT + TARGET_BOX_RADIUS;
+        const DROPDOWN_ITEM_HEIGHT = 65;
+        const calculatedDropdownHeight =
+            DROPDOWN_ITEM_HEIGHT * (getCharsAliveAmount() ?? 3);
 
         const isCloseToRightBoundary = widthDiff < widthBoundary;
         const isCloseToBottomBoundary = heightDiff < heightBoundary;
@@ -63,8 +75,10 @@ function Game({
         const isCloseToLeftBoundary = Math.abs(widthDiff - imgWidth) < 30;
 
         const dropdownPosition: DropdownPositions = {};
-        if (isCloseToTopBoundary) dropdownPosition.bottom = "-180px";
-        if (isCloseToBottomBoundary) dropdownPosition.top = "-180px";
+        if (isCloseToTopBoundary)
+            dropdownPosition.bottom = `-${calculatedDropdownHeight}px`;
+        if (isCloseToBottomBoundary)
+            dropdownPosition.top = `-${calculatedDropdownHeight}px`;
         if (isCloseToLeftBoundary) dropdownPosition.right = "-150px";
         if (isCloseToRightBoundary) dropdownPosition.left = "-150px";
 
