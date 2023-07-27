@@ -51,25 +51,30 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
     return (
         <div className="flex flex-col items-center p-4 gap-6">
             <h1 className="text-3xl font-nunito-bold">Leaderboard</h1>
-            {games.map((game) => {
-                return (
-                    <button key={game.id} onClick={() => handleMapClick(game)}>
-                        <div className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer">
-                            <img
-                                src={game.image}
-                                alt="game preview"
-                                className="h-[80%] object-cover rounded-t-lg"
-                                draggable={false}
-                            />
-                            <div className="p-3 flex flex-col justify-between grow items-center">
-                                <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
-                                    {game.title}
-                                </h2>
+            <div className="flex gap-6 flex-wrap justify-center">
+                {games.map((game) => {
+                    return (
+                        <button
+                            key={game.id}
+                            onClick={() => handleMapClick(game)}
+                        >
+                            <div className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer">
+                                <img
+                                    src={game.image}
+                                    alt="game preview"
+                                    className="h-[80%] object-cover rounded-t-lg"
+                                    draggable={false}
+                                />
+                                <div className="p-3 flex flex-col justify-between grow items-center">
+                                    <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
+                                        {game.title}
+                                    </h2>
+                                </div>
                             </div>
-                        </div>
-                    </button>
-                );
-            })}
+                        </button>
+                    );
+                })}
+            </div>
             <h2 className="text-xl font-nunito-bold text-orange-800 dark:text-yellow-400 uppercase">
                 {gameToShow.title}
             </h2>
