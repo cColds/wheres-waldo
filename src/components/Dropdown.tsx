@@ -131,12 +131,12 @@ function Dropdown({
                     if (character.found) return null;
 
                     return (
-                        <li key={character.name} className="h-full">
+                        <li key={character.name}>
                             <button
                                 onClick={() =>
                                     handleCharacterClick(character.name)
                                 }
-                                className="flex gap-3 hover:bg-dark-background/10 dark:hover:bg-white/10 w-full p-3 transition duration-300 ease-in-out"
+                                className="h-[65px] flex gap-3 hover:bg-dark-background/10 dark:hover:bg-white/10 w-full p-3 transition duration-300 ease-in-out"
                             >
                                 <img
                                     src={character.url}
