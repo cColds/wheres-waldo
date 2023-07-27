@@ -32,9 +32,8 @@ const Timer = ({
 
         if (!isGameActive) {
             clearInterval(interval);
-            const MINUTES_TO_SECONDS = minutes / 60;
+            const MINUTES_TO_SECONDS = minutes * 60;
             const MS_TO_SECONDS = ms / 1000;
-
             updateTotalTimeInSeconds(
                 MINUTES_TO_SECONDS + MS_TO_SECONDS + seconds
             );
