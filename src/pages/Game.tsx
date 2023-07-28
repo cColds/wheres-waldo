@@ -192,7 +192,7 @@ function Game({
             {isTargetBoxActive && (
                 <div
                     style={{ left: coords.width, top: coords.height }}
-                    className="absolute translate-x-[-50%] translate-y-[-50%] rounded-full w-[75px] h-[75px] z-10 border-slate-100 border-2 bg-black/50 zoom"
+                    className="absolute translate-x-[-50%] translate-y-[-50%] rounded-full w-[75px] h-[75px] z-10 border-slate-100 border-2 border-dashed bg-black/50 border-spacing-4"
                     onClick={handleTargetBoxClick}
                 >
                     <Dropdown
