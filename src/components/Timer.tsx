@@ -1,54 +1,68 @@
-import { useEffect, useState } from "react";
+import { intervalToDuration } from "date-fns";
+import { useEffect } from "react";
+import { default as TimerType } from "../types/timer";
 
 const Timer = ({
     isGameActive,
-    updateTotalTimeInSeconds,
+    updateCurrentTime,
+    updateStartTime,
+    startTime,
+    currentTime,
+    finalTimerTime,
 }: {
     isGameActive: boolean;
-    updateTotalTimeInSeconds: (seconds: number) => void;
+    updateCurrentTime: (newTime: number) => void;
+    updateStartTime: (newTime: number) => void;
+    startTime: number;
+    currentTime: number;
+    totalTimeInSeconds: number;
+    finalTimerTime: TimerType;
 }) => {
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
-    const [ms, setMs] = useState(0);
-
     useEffect(() => {
+        updateStartTime(Date.now());
+        updateCurrentTime(Date.now());
         const interval = setInterval(() => {
-            setMs((prevMs) => {
-                if (prevMs + 15 < 1000) return prevMs + 15;
-
-                setSeconds((prevSeconds) => {
-                    if (prevSeconds === 59) {
-                        setMinutes((prevMinutes) => prevMinutes + 1);
-
-                        return 0;
-                    }
-
-                    return prevSeconds + 1;
-                });
-
-                return 0;
-            });
-        }, 15);
+            updateStartTime(Date.now());
+        }, 10);
 
         if (!isGameActive) {
             clearInterval(interval);
-            const MINUTES_TO_SECONDS = minutes * 60;
-            const MS_TO_SECONDS = ms / 1000;
-            updateTotalTimeInSeconds(
-                MINUTES_TO_SECONDS + MS_TO_SECONDS + seconds
-            );
         }
 
         return () => clearInterval(interval);
-    }, [minutes, seconds, ms, isGameActive, updateTotalTimeInSeconds]);
+    }, [isGameActive, updateStartTime, updateCurrentTime]);
+
+    const duration = intervalToDuration({
+        start: new Date(startTime),
+        end: new Date(currentTime),
+    });
+
+    const ms = (startTime - currentTime) % 1000;
+    const { minutes = 0, seconds = 0 } = duration;
 
     return (
         <p className="text-lg">
-            {minutes < 10 ? `0${minutes}` : minutes}:
-            {seconds < 10 ? `0${seconds}` : seconds}:
-            {ms > 0 ? ms.toString().substring(0, 2) : "00"}
+            {isGameActive ? (
+                <FormattedTimer minutes={minutes} seconds={seconds} ms={ms} />
+            ) : (
+                <FormattedTimer
+                    minutes={finalTimerTime.minutes}
+                    seconds={finalTimerTime.seconds}
+                    ms={finalTimerTime.ms}
+                />
+            )}
         </p>
     );
 };
+
+function FormattedTimer({ minutes, seconds, ms }: TimerType) {
+    return (
+        <>
+            {minutes.toString().padStart(2, "0")}:
+            {seconds.toString().padStart(2, "0")}:
+            {ms.toString().padStart(3, "0")}
+        </>
+    );
+}
 
 export default Timer;

@@ -50,7 +50,7 @@ function WinModal({
             <div className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-light-background dark:bg-dark-background rounded-lg p-4 ">
                 <div className="mb-3">
                     <h1 className="text-xl font-nunito-bold">
-                        You finished in {totalTimeInSeconds.toFixed(2)}s!
+                        You finished in {totalTimeInSeconds.toFixed(3)}s!
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400">
                         Submit your time to the leaderboard

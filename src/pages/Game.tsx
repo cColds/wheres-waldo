@@ -16,12 +16,14 @@ function Game({
     toggleIsGameActive,
     isGameActive,
     totalTimeInSeconds,
+    updateTotalTimeInSeconds,
 }: {
     game: GameData | null;
     updateGameCharacters: (updatedChars: GameData) => void;
     toggleIsGameActive: () => void;
     isGameActive: boolean;
     totalTimeInSeconds: number;
+    updateTotalTimeInSeconds: () => void;
 }) {
     const { gameId } = useParams();
     const navigate = useNavigate();
@@ -203,6 +205,7 @@ function Game({
                         toggleTargetBox={toggleTargetBox}
                         toggleIsGameActive={toggleIsGameActive}
                         dropdownPosition={dropdownPosition}
+                        updateTotalTimeInSeconds={updateTotalTimeInSeconds}
                     />
                     <div className="rounded-full w-1 h-1 absolute bg-red-600 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]" />
                 </div>

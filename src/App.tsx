@@ -3,11 +3,13 @@ import { useLocation } from "react-router-dom";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import games from "./gameData";
 import GameData from "./types/gameData";
 import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
+import { intervalToDuration } from "date-fns";
+import Timer from "./types/timer";
 
 function App() {
     const location = useLocation();
@@ -15,9 +17,40 @@ function App() {
     const [isGameActive, setIsGameActive] = useState(false);
     const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
     const [lastPlayedGame, setLastPlayedGame] = useState<GameData | null>(null);
+    const [startTime, setStartTime] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [finalTimerTime, setFinalTimerTime] = useState<Timer>({
+        minutes: 0,
+        seconds: 0,
+        ms: 0,
+    });
 
-    const updateTotalTimeInSeconds = (seconds: number) =>
-        setTotalTimeInSeconds(seconds);
+    const updateStartTime = useCallback(
+        (newTime: number) => setStartTime(newTime),
+        []
+    );
+    const updateCurrentTime = useCallback(
+        (newTime: number) => setCurrentTime(newTime),
+        []
+    );
+
+    const getFinalTimerTime = () => {
+        const duration = intervalToDuration({
+            start: new Date(startTime),
+            end: new Date(currentTime),
+        });
+        const ms = (startTime - currentTime) % 1000;
+        const { minutes = 0, seconds = 0 } = duration;
+
+        return { minutes, seconds, ms };
+    };
+
+    const updateTotalTimeInSeconds = () => {
+        const totalSeconds = (startTime - currentTime) / 1000;
+
+        setTotalTimeInSeconds(totalSeconds);
+        setFinalTimerTime(getFinalTimerTime);
+    };
 
     const toggleIsGameActive = () => setIsGameActive(!isGameActive);
 
@@ -46,7 +79,12 @@ function App() {
                 <Nav
                     game={game}
                     isGameActive={isGameActive}
-                    updateTotalTimeInSeconds={updateTotalTimeInSeconds}
+                    updateCurrentTime={updateCurrentTime}
+                    updateStartTime={updateStartTime}
+                    startTime={startTime}
+                    currentTime={currentTime}
+                    totalTimeInSeconds={totalTimeInSeconds}
+                    finalTimerTime={finalTimerTime}
                 />
             </header>
             <main>
@@ -61,6 +99,9 @@ function App() {
                                 toggleIsGameActive={toggleIsGameActive}
                                 isGameActive={isGameActive}
                                 totalTimeInSeconds={totalTimeInSeconds}
+                                updateTotalTimeInSeconds={
+                                    updateTotalTimeInSeconds
+                                }
                             />
                         }
                     />

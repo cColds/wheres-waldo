@@ -3,15 +3,26 @@ import useTheme from "./hooks/useTheme";
 import { LuSun, LuMoonStar } from "react-icons/lu";
 import GameData from "../types/gameData";
 import Timer from "./Timer";
+import { default as TimerType } from "../types/timer";
 
 function Nav({
     game,
     isGameActive,
-    updateTotalTimeInSeconds,
+    updateCurrentTime,
+    updateStartTime,
+    startTime,
+    currentTime,
+    totalTimeInSeconds,
+    finalTimerTime,
 }: {
     game: GameData | null;
     isGameActive: boolean;
-    updateTotalTimeInSeconds: (seconds: number) => void;
+    updateCurrentTime: (newTime: number) => void;
+    updateStartTime: (newTime: number) => void;
+    startTime: number;
+    currentTime: number;
+    totalTimeInSeconds: number;
+    finalTimerTime: TimerType;
 }) {
     const [isDark, setIsDark] = useTheme();
 
@@ -37,7 +48,12 @@ function Nav({
             {game && (
                 <Timer
                     isGameActive={isGameActive}
-                    updateTotalTimeInSeconds={updateTotalTimeInSeconds}
+                    updateCurrentTime={updateCurrentTime}
+                    updateStartTime={updateStartTime}
+                    startTime={startTime}
+                    currentTime={currentTime}
+                    totalTimeInSeconds={totalTimeInSeconds}
+                    finalTimerTime={finalTimerTime}
                 />
             )}
 

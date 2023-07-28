@@ -31,6 +31,7 @@ function Dropdown({
     toggleTargetBox,
     toggleIsGameActive,
     dropdownPosition,
+    updateTotalTimeInSeconds,
 }: {
     items: GameData;
     coords: Dimension;
@@ -41,6 +42,7 @@ function Dropdown({
     toggleTargetBox: () => void;
     toggleIsGameActive: () => void;
     dropdownPosition: DropdownPositions;
+    updateTotalTimeInSeconds: () => void;
 }) {
     const getUpdatedCharacter = (name: string) => {
         return items.characters.map((char) => {
@@ -112,6 +114,7 @@ function Dropdown({
         const updatedCharacter = getUpdatedCharacter(name);
         if (isEveryCharFound(updatedCharacter)) {
             toggleIsGameActive();
+            updateTotalTimeInSeconds();
             document.body.style.overflow = "hidden";
         }
         updateGameCharacters({
