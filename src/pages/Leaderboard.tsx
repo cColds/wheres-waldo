@@ -25,7 +25,10 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
 
     const handleMapClick = (game: GameData) => {
         setGameToShow(game);
-        leaderboardRef?.current?.scrollIntoView({ behavior: "smooth" });
+
+        setTimeout(() => {
+            leaderboardRef?.current?.scrollIntoView({ behavior: "smooth" });
+        }, 200);
     };
 
     useEffect(() => {
