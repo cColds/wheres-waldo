@@ -161,7 +161,7 @@ function Game({
     }, []);
     if (game == null) return null;
     return (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden flex justify-center">
             {shouldShowNotification && (
                 <Notification notificationDetails={notificationDetails} />
             )}
