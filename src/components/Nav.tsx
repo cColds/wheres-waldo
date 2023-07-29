@@ -37,8 +37,12 @@ function Nav({
 
     return (
         <nav className="px-6 py-4 flex justify-between items-center h-full">
-            <Link to="/" aria-label="pixelhunt homepage">
-                <p className="text-2xl">
+            <Link
+                to="/"
+                aria-label="pixelhunt homepage"
+                className="text-2xl py-1.5 px-2.5 hover:bg-primary/20 dark:hover:bg-slate-800 rounded-lg transition ease-in-out duration-300"
+            >
+                <p>
                     <span>Pixel</span>
                     <span className="text-cyan-800 dark:text-primary">
                         Hunt
@@ -47,7 +51,10 @@ function Nav({
             </Link>
 
             {!isGameActive && !game && (
-                <Link to="leaderboard" className="text-lg ml-auto mr-4">
+                <Link
+                    to="leaderboard"
+                    className="text-lg ml-auto py-1.5 px-2.5 mr-4 hover:bg-primary/20 dark:hover:bg-slate-800 rounded-lg transition ease-in-out duration-300"
+                >
                     Leaderboard
                 </Link>
             )}
@@ -111,7 +118,7 @@ function Nav({
 
             <button
                 onClick={handleThemeToggle}
-                className="bg-slate-100 border-slate-300 border-[1px] shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-200 dark:bg-dark-background dark:border-slate-800  dark:hover:bg-slate-900 transition ease-in-out duration-300"
+                className="bg-slate-100 border-slate-300 border-[1px] shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-200 dark:bg-dark-background dark:border-slate-700  dark:hover:bg-slate-800 transition ease-in-out duration-300"
                 aria-label="toggle theme"
             >
                 {isDark ? (
