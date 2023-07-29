@@ -25,10 +25,6 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
 
     const handleMapClick = (game: GameData) => {
         setGameToShow(game);
-
-        setTimeout(() => {
-            leaderboardRef?.current?.scrollIntoView({ behavior: "smooth" });
-        }, 200);
     };
 
     useEffect(() => {
@@ -49,7 +45,14 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
         };
 
         fetchGameScores()
-            .then((data) => setScores(data))
+            .then((data) => {
+                setScores(data);
+                setTimeout(() => {
+                    leaderboardRef?.current?.scrollIntoView({
+                        behavior: "smooth",
+                    });
+                }, 200);
+            })
             .catch(console.error);
     }, [gameToShow]);
 
