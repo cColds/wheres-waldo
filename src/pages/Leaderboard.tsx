@@ -61,11 +61,17 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
             <h1 className="text-3xl font-nunito-bold">Leaderboard</h1>
             <div className="flex gap-6 flex-wrap justify-center">
                 {games.map((game) => {
+                    const isSelectedGame = Object.is(gameToShow, game);
+
                     return (
                         <button
                             key={game.id}
                             onClick={() => handleMapClick(game)}
-                            className="flex flex-col grow shadow-md w-[350px] h-[350px] bg-cyan-100/30 dark:bg-dark-secondary rounded-lg cursor-pointer"
+                            className={`${
+                                isSelectedGame
+                                    ? "scale-[1.03] border-2 border-primary shadow-primary/70 shadow-lg"
+                                    : "shadow-md"
+                            } transition duration-300 ease-in-out flex flex-col grow w-[350px] h-[350px] bg-cyan-100/30 dark:bg-dark-secondary rounded-lg cursor-pointer`}
                         >
                             <img
                                 src={game.image}
