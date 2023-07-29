@@ -24,6 +24,12 @@ function App() {
         seconds: 0,
         ms: 0,
     });
+    const [isCharacterListActive, setIsCharacterListActive] = useState(false);
+
+    const toggleCharacterList = () =>
+        setIsCharacterListActive(!isCharacterListActive);
+
+    const hideCharacterList = () => setIsCharacterListActive(false);
 
     const updateStartTime = useCallback(
         (newTime: number) => setStartTime(newTime),
@@ -60,7 +66,7 @@ function App() {
 
     useEffect(() => {
         const { pathname } = location;
-
+        hideCharacterList();
         const gamePath = games.find((game) => `/${game.gameId}` === pathname);
         if (!gamePath) {
             setGame(null);
@@ -85,6 +91,8 @@ function App() {
                     currentTime={currentTime}
                     totalTimeInSeconds={totalTimeInSeconds}
                     finalTimerTime={finalTimerTime}
+                    toggleCharacterList={toggleCharacterList}
+                    isCharacterListActive={isCharacterListActive}
                 />
             </header>
             <main>
@@ -102,6 +110,7 @@ function App() {
                                 updateTotalTimeInSeconds={
                                     updateTotalTimeInSeconds
                                 }
+                                hideCharacterList={hideCharacterList}
                             />
                         }
                     />

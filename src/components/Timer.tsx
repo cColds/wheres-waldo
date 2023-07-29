@@ -41,7 +41,7 @@ const Timer = ({
     const { minutes = 0, seconds = 0 } = duration;
 
     return (
-        <p className="text-lg">
+        <p className="text-lg mx-6">
             {isGameActive ? (
                 <FormattedTimer minutes={minutes} seconds={seconds} ms={ms} />
             ) : (

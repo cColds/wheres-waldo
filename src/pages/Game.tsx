@@ -9,6 +9,7 @@ import games from "../gameData";
 import { useNavigate, useParams } from "react-router-dom";
 import DropdownPositions from "../types/dropdownPositions";
 import isEmptyObj from "../utils/isEmptyObj";
+import getCharsAlive from "../utils/getCharsAlive";
 
 function Game({
     game,
@@ -17,6 +18,7 @@ function Game({
     isGameActive,
     totalTimeInSeconds,
     updateTotalTimeInSeconds,
+    hideCharacterList,
 }: {
     game: GameData | null;
     updateGameCharacters: (updatedChars: GameData) => void;
@@ -24,6 +26,7 @@ function Game({
     isGameActive: boolean;
     totalTimeInSeconds: number;
     updateTotalTimeInSeconds: () => void;
+    hideCharacterList: () => void;
 }) {
     const { gameId } = useParams();
     const navigate = useNavigate();
@@ -45,15 +48,6 @@ function Game({
         { right: "-150px" }
     );
 
-    const getCharsAliveAmount = () => {
-        if (game == null) return null;
-        const { characters } = game;
-
-        const charsAlive = characters.filter((char) => !char.found);
-
-        return charsAlive.length;
-    };
-
     const getDropdownPosition = (
         coordWidth: number,
         coordHeight: number,
@@ -69,7 +63,7 @@ function Game({
         const heightBoundary = DROPDOWN_HEIGHT + TARGET_BOX_RADIUS;
         const DROPDOWN_ITEM_HEIGHT = 65;
         const calculatedDropdownHeight =
-            DROPDOWN_ITEM_HEIGHT * (getCharsAliveAmount() ?? 3);
+            DROPDOWN_ITEM_HEIGHT * (getCharsAlive(game)?.length ?? 3);
 
         const isCloseToRightBoundary = widthDiff < widthBoundary;
         const isCloseToBottomBoundary = heightDiff < heightBoundary;
@@ -115,6 +109,7 @@ function Game({
     const toggleTargetBox = () => setIsTargetBoxActive(!isTargetBoxActive);
 
     const handleTargetBoxClick = (e: MouseEvent<HTMLImageElement>) => {
+        hideCharacterList();
         toggleTargetBox();
         if (isTargetBoxActive) return;
 
