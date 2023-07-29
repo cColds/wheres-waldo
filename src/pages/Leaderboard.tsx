@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import games from "../gameData";
 import GameData from "../types/gameData";
 import {
@@ -21,9 +21,11 @@ type Score = {
 function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
     const [gameToShow, setGameToShow] = useState(lastPlayedGame ?? games[0]);
     const [scores, setScores] = useState<Score[] | null>(null);
+    const leaderboardRef = useRef<HTMLTableElement>(null);
 
     const handleMapClick = (game: GameData) => {
         setGameToShow(game);
+        leaderboardRef?.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     useEffect(() => {
@@ -79,7 +81,10 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                 {gameToShow.title}
             </h2>
 
-            <table className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px]">
+            <table
+                className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px]"
+                ref={leaderboardRef}
+            >
                 <thead className="bg-slate-800">
                     <tr>
                         <td className="p-4">Place</td>
