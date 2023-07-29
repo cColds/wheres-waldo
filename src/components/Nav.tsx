@@ -44,7 +44,7 @@ function Nav({
                 </p>
             </Link>
 
-            {!isGameActive && (
+            {!isGameActive && !game && (
                 <Link to="leaderboard" className="text-lg ml-auto mr-4">
                     Leaderboard
                 </Link>
