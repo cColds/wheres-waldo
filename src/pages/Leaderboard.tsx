@@ -62,19 +62,18 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                         <button
                             key={game.id}
                             onClick={() => handleMapClick(game)}
+                            className="flex flex-col grow shadow-lg w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer"
                         >
-                            <div className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer">
-                                <img
-                                    src={game.image}
-                                    alt="game preview"
-                                    className="h-[80%] object-cover rounded-t-lg"
-                                    draggable={false}
-                                />
-                                <div className="p-3 flex flex-col justify-between grow items-center">
-                                    <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
-                                        {game.title}
-                                    </h2>
-                                </div>
+                            <img
+                                src={game.image}
+                                alt="game preview"
+                                className="h-[80%] object-cover rounded-t-lg w-full"
+                                draggable={false}
+                            />
+                            <div className="p-3 flex flex-col justify-between grow items-center">
+                                <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
+                                    {game.title}
+                                </h2>
                             </div>
                         </button>
                     );

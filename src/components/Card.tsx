@@ -8,7 +8,7 @@ function Card() {
                 return (
                     <div
                         key={game.id}
-                        className="flex flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg"
+                        className="flex grow flex-col shadow-lg max-w-full w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg"
                     >
                         <img
                             src={game.image}
