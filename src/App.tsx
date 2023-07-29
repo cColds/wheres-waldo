@@ -130,9 +130,10 @@ function App() {
             <footer className="w-full flex justify-center h-[50px] p-4">
                 <a
                     href="https://github.com/cColds/wheres-waldo"
-                    className="flex gap-2 items-center"
+                    className="flex gap-3 items-center"
                 >
-                    cColds <FaGithub className="w-5 h-5" />
+                    <span className="text-lg">cColds</span>{" "}
+                    <FaGithub className="w-6 h-6" />
                 </a>
             </footer>
         </div>
