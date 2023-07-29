@@ -34,19 +34,19 @@ const games = [
         characters: [
             {
                 name: "Fire Mario",
-                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Ffire-mario.png?alt=media&token=e7c7c487-efe0-4099-90ea-55dfe26b77c5",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Ffire-mario.webp?alt=media&token=e048c6ab-a7d7-43af-b380-8b3d7c55822c",
                 found: false,
                 marker: { x: 3000, y: 2270 },
             },
             {
                 name: "King Boo",
-                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fking-boo.webp?alt=media&token=bfdaec8b-c672-413b-923b-4463c99982b0",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fking-boo.webp?alt=media&token=8d8f1284-a0a0-4981-8cca-ee5dfe9206ca",
                 found: false,
                 marker: { x: 1102, y: 2722 },
             },
             {
                 name: "Waluigi",
-                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fwaluigi.png?alt=media&token=8431054c-5271-4d54-91f7-dc2c5bcba804",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-2%2Fcharacters%2Fwaluigi.webp?alt=media&token=ea196878-f730-43c7-834c-b8a63e52330e",
                 found: false,
                 marker: { x: 2541, y: 4738 },
             },
