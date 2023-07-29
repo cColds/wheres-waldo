@@ -73,7 +73,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                                 className="h-[80%] object-cover rounded-t-lg w-full"
                                 draggable={false}
                             />
-                            <div className="p-3 flex flex-col justify-between grow items-center">
+                            <div className="p-3 flex flex-col justify-between grow items-center w-full">
                                 <h2 className="text-lg overflow-hidden text-center w-full whitespace-nowrap text-ellipsis">
                                     {game.title}
                                 </h2>
