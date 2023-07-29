@@ -68,8 +68,7 @@ function Dropdown({
 
     const isWithinCoord = (coord: number, start: number, end: number) => {
         return (
-            Math.abs(coord - start) <= 75 ||
-            Math.abs(coord - end) <= 75 ||
+            (Math.abs(coord - start) <= 75 && Math.abs(coord - end) <= 75) ||
             (coord >= start && coord <= end)
         );
     };
