@@ -187,6 +187,7 @@ function Game({
                 onLoad={handleImageLoad}
                 onClick={handleTargetBoxClick}
                 ref={imgRef}
+                className="game-image"
             />
 
             {isTargetBoxActive && (
