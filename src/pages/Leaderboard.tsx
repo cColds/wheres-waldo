@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import games from "../gameData";
 import GameData from "../types/gameData";
 import {
