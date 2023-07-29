@@ -22,3 +22,4 @@ A Where's Waldo (Photo Tagging) game where your goal is to find all the hidden c
 -   Handle invalid usernames and times using Firebase Security rules.
 -   Validate if character clicked is valid using Firebase as a backend.
 -   Fetch leaderboard game scores by querying Firebase Firestore documents.
+-   Custom 404 page for invalid urls.
