@@ -65,7 +65,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                                 isSelectedGame
                                     ? "scale-[1.03] border-2 border-primary shadow-primary/70 shadow-lg"
                                     : "shadow-md"
-                            } transition duration-300 ease-in-out flex flex-col grow w-[350px] h-[350px] bg-cyan-100/30 dark:bg-dark-secondary rounded-lg cursor-pointer`}
+                            } transition-[transform,shadow] duration-300 ease-in-out flex flex-col grow w-[350px] h-[350px] bg-cyan-100/30 dark:bg-dark-secondary rounded-lg cursor-pointer`}
                         >
                             <img
                                 src={game.image}
