@@ -1,11 +1,10 @@
 import { FaCircleCheck, FaCircleExclamation } from "react-icons/fa6";
 import NotificationDetails from "../types/notificationDetails";
-
-function Notification({
-    notificationDetails,
-}: {
+type NotificationProps = {
     notificationDetails: NotificationDetails | null;
-}) {
+};
+
+function Notification({ notificationDetails }: NotificationProps) {
     if (notificationDetails == null) return null;
 
     const { message, isFound } = notificationDetails;

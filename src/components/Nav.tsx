@@ -6,6 +6,19 @@ import Timer from "./Timer";
 import { default as TimerType } from "../types/timer";
 import getCharsAlive from "../utils/getCharsAlive";
 
+type NavProps = {
+    game: GameData | null;
+    isGameActive: boolean;
+    updateCurrentTime: (newTime: number) => void;
+    updateStartTime: (newTime: number) => void;
+    startTime: number;
+    currentTime: number;
+    totalTimeInSeconds: number;
+    finalTimerTime: TimerType;
+    toggleCharacterList: () => void;
+    isCharacterListActive: boolean;
+};
+
 function Nav({
     game,
     isGameActive,
@@ -17,18 +30,7 @@ function Nav({
     finalTimerTime,
     toggleCharacterList,
     isCharacterListActive,
-}: {
-    game: GameData | null;
-    isGameActive: boolean;
-    updateCurrentTime: (newTime: number) => void;
-    updateStartTime: (newTime: number) => void;
-    startTime: number;
-    currentTime: number;
-    totalTimeInSeconds: number;
-    finalTimerTime: TimerType;
-    toggleCharacterList: () => void;
-    isCharacterListActive: boolean;
-}) {
+}: NavProps) {
     const [isDark, setIsDark] = useTheme();
 
     function handleThemeToggle() {

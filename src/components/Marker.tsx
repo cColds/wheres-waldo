@@ -3,15 +3,13 @@ import Dimension from "../types/dimension";
 import NaturalDimension from "../types/naturalDimension";
 import Characters from "../types/characters";
 
-function Marker({
-    characters,
-    naturalDimension,
-    imgDimension,
-}: {
+type MarkerProps = {
     characters: Characters;
     naturalDimension: NaturalDimension;
     imgDimension: Dimension;
-}) {
+};
+
+function Marker({ characters, naturalDimension, imgDimension }: MarkerProps) {
     return (
         <>
             {characters.map((character) => {

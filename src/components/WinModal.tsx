@@ -11,13 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 const db = getFirestore(app);
 
-function WinModal({
-    totalTimeInSeconds,
-    game,
-}: {
+type WinModalProps = {
     totalTimeInSeconds: number;
     game: GameData;
-}) {
+};
+
+function WinModal({ totalTimeInSeconds, game }: WinModalProps) {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
 

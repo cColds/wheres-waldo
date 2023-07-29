@@ -2,22 +2,25 @@ import { intervalToDuration } from "date-fns";
 import { useEffect } from "react";
 import { default as TimerType } from "../types/timer";
 
-const Timer = ({
-    isGameActive,
-    updateCurrentTime,
-    updateStartTime,
-    startTime,
-    currentTime,
-    finalTimerTime,
-}: {
+type TimerProps = {
     isGameActive: boolean;
     updateCurrentTime: (newTime: number) => void;
     updateStartTime: (newTime: number) => void;
     startTime: number;
     currentTime: number;
     totalTimeInSeconds: number;
+
     finalTimerTime: TimerType;
-}) => {
+};
+
+function Timer({
+    isGameActive,
+    updateCurrentTime,
+    updateStartTime,
+    startTime,
+    currentTime,
+    finalTimerTime,
+}: TimerProps) {
     useEffect(() => {
         updateStartTime(Date.now());
         updateCurrentTime(Date.now());
@@ -53,7 +56,7 @@ const Timer = ({
             )}
         </p>
     );
-};
+}
 
 function FormattedTimer({ minutes, seconds, ms }: TimerType) {
     return (

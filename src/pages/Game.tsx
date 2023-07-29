@@ -11,6 +11,16 @@ import DropdownPositions from "../types/dropdownPositions";
 import isEmptyObj from "../utils/isEmptyObj";
 import getCharsAlive from "../utils/getCharsAlive";
 
+type GameProps = {
+    game: GameData | null;
+    updateGameCharacters: (updatedChars: GameData) => void;
+    toggleIsGameActive: () => void;
+    isGameActive: boolean;
+    totalTimeInSeconds: number;
+    updateTotalTimeInSeconds: () => void;
+    hideCharacterList: () => void;
+};
+
 function Game({
     game,
     updateGameCharacters,
@@ -19,15 +29,7 @@ function Game({
     totalTimeInSeconds,
     updateTotalTimeInSeconds,
     hideCharacterList,
-}: {
-    game: GameData | null;
-    updateGameCharacters: (updatedChars: GameData) => void;
-    toggleIsGameActive: () => void;
-    isGameActive: boolean;
-    totalTimeInSeconds: number;
-    updateTotalTimeInSeconds: () => void;
-    hideCharacterList: () => void;
-}) {
+}: GameProps) {
     const { gameId } = useParams();
     const navigate = useNavigate();
 

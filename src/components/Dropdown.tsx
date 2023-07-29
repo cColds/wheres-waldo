@@ -21,6 +21,19 @@ type CharactersCoord = {
     [key: string]: Coordinate[];
 };
 
+type DropdownProps = {
+    items: GameData;
+    coords: Dimension;
+    naturalDimension: NaturalDimension;
+    imgDimension: Dimension;
+    updateGameCharacters: (updatedChars: GameData) => void;
+    handleNotification: (message: string, isFound: boolean) => void;
+    toggleTargetBox: () => void;
+    toggleIsGameActive: () => void;
+    dropdownPosition: DropdownPositions;
+    updateTotalTimeInSeconds: () => void;
+};
+
 function Dropdown({
     items,
     coords,
@@ -32,18 +45,7 @@ function Dropdown({
     toggleIsGameActive,
     dropdownPosition,
     updateTotalTimeInSeconds,
-}: {
-    items: GameData;
-    coords: Dimension;
-    naturalDimension: NaturalDimension;
-    imgDimension: Dimension;
-    updateGameCharacters: (updatedChars: GameData) => void;
-    handleNotification: (message: string, isFound: boolean) => void;
-    toggleTargetBox: () => void;
-    toggleIsGameActive: () => void;
-    dropdownPosition: DropdownPositions;
-    updateTotalTimeInSeconds: () => void;
-}) {
+}: DropdownProps) {
     const getUpdatedCharacter = (name: string) => {
         return items.characters.map((char) => {
             if (char.name === name) {

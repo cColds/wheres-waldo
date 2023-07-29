@@ -18,13 +18,15 @@ type Score = {
     date: Timestamp;
 };
 
+type LeaderboardProps = {
+    activeGameLeaderboard: GameData | null;
+    updateActiveGameLeaderboard: (state: GameData | null) => void;
+};
+
 function Leaderboard({
     activeGameLeaderboard,
     updateActiveGameLeaderboard,
-}: {
-    activeGameLeaderboard: GameData | null;
-    updateActiveGameLeaderboard: (state: GameData | null) => void;
-}) {
+}: LeaderboardProps) {
     const [scores, setScores] = useState<Score[] | null>(null);
     const activeGame = activeGameLeaderboard ?? games[0];
 
@@ -92,41 +94,7 @@ function Leaderboard({
                 {activeGame.title}
             </h2>
             {scores?.length ? (
-                <table className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md">
-                    <thead className="bg-slate-300 dark:bg-slate-800">
-                        <tr className="text-light-text dark:text-dark-text">
-                            <td className="p-4">Place</td>
-                            <td className="p-4">Username</td>
-                            <td className="p-4">Time</td>
-                            <td className="p-4">Date</td>
-                        </tr>
-                    </thead>
-
-                    <tbody className="bg-slate-200/70 dark:bg-slate-900">
-                        {scores?.map((score, index) => {
-                            return (
-                                <tr
-                                    key={index}
-                                    className="text-light-text dark:text-dark-text"
-                                >
-                                    <td className="p-4">{index + 1}</td>
-                                    <td className="p-4 overflow-hidden text-ellipsis max-w-[150px]">
-                                        {score.username}
-                                    </td>
-                                    <td className="p-4">
-                                        {score.time.toFixed(3)}s
-                                    </td>
-                                    <td className="p-4">
-                                        {format(
-                                            score.date.toDate(),
-                                            "LLL d, y"
-                                        )}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <Table scores={scores} />
             ) : (
                 <p className="text-slate-600 dark:text-slate-400">
                     It looks like no one has submitted their score to the
@@ -134,6 +102,41 @@ function Leaderboard({
                 </p>
             )}
         </div>
+    );
+}
+
+function Table({ scores }: { scores: Score[] }) {
+    return (
+        <table className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md">
+            <thead className="bg-slate-300 dark:bg-slate-800">
+                <tr className="text-light-text dark:text-dark-text">
+                    <td className="p-4">Place</td>
+                    <td className="p-4">Username</td>
+                    <td className="p-4">Time</td>
+                    <td className="p-4">Date</td>
+                </tr>
+            </thead>
+
+            <tbody className="bg-slate-200/70 dark:bg-slate-900">
+                {scores?.map((score, index) => {
+                    return (
+                        <tr
+                            key={index}
+                            className="text-light-text dark:text-dark-text"
+                        >
+                            <td className="p-4">{index + 1}</td>
+                            <td className="p-4 overflow-hidden text-ellipsis max-w-[150px]">
+                                {score.username}
+                            </td>
+                            <td className="p-4">{score.time.toFixed(3)}s</td>
+                            <td className="p-4">
+                                {format(score.date.toDate(), "LLL d, y")}
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     );
 }
 
