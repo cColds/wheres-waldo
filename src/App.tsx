@@ -10,6 +10,7 @@ import Leaderboard from "./pages/Leaderboard";
 import NotFound from "./pages/NotFound";
 import { intervalToDuration } from "date-fns";
 import Timer from "./types/timer";
+import { FaGithub } from "react-icons/fa";
 
 function App() {
     const location = useLocation();
@@ -80,7 +81,7 @@ function App() {
     }, [location]);
 
     return (
-        <div className="bg-inherit">
+        <div className="bg-inherit flex flex-col h-full">
             <header className="sticky top-0 bg-inherit h-[80px] z-50">
                 <Nav
                     game={game}
@@ -95,7 +96,7 @@ function App() {
                     isCharacterListActive={isCharacterListActive}
                 />
             </header>
-            <main>
+            <main className="grow">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route
@@ -125,6 +126,15 @@ function App() {
                     <Route path="/404" element={<NotFound />} />
                 </Routes>
             </main>
+
+            <footer className="w-full flex justify-center h-[50px] p-4">
+                <a
+                    href="https://github.com/cColds/wheres-waldo"
+                    className="flex gap-2 items-center"
+                >
+                    cColds <FaGithub className="w-5 h-5" />
+                </a>
+            </footer>
         </div>
     );
 }
