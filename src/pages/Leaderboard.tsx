@@ -21,7 +21,6 @@ type Score = {
 function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
     const [gameToShow, setGameToShow] = useState(lastPlayedGame ?? games[0]);
     const [scores, setScores] = useState<Score[] | null>(null);
-    const leaderboardRef = useRef<HTMLTableElement>(null);
 
     const handleMapClick = (game: GameData) => {
         setGameToShow(game);
@@ -47,11 +46,6 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
         fetchGameScores()
             .then((data) => {
                 setScores(data);
-                setTimeout(() => {
-                    leaderboardRef?.current?.scrollIntoView({
-                        behavior: "smooth",
-                    });
-                }, 200);
             })
             .catch(console.error);
     }, [gameToShow]);
@@ -92,10 +86,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                 {gameToShow.title}
             </h2>
 
-            <table
-                className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md"
-                ref={leaderboardRef}
-            >
+            <table className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md">
                 <thead className="bg-slate-300 dark:bg-slate-800">
                     <tr className="text-light-text dark:text-dark-text">
                         <td className="p-4">Place</td>
