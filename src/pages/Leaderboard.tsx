@@ -18,19 +18,25 @@ type Score = {
     date: Timestamp;
 };
 
-function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
-    const [gameToShow, setGameToShow] = useState(lastPlayedGame ?? games[0]);
+function Leaderboard({
+    activeGameLeaderboard,
+    updateActiveGameLeaderboard,
+}: {
+    activeGameLeaderboard: GameData | null;
+    updateActiveGameLeaderboard: (state: GameData | null) => void;
+}) {
     const [scores, setScores] = useState<Score[] | null>(null);
+    const activeGame = activeGameLeaderboard ?? games[0];
 
     const handleMapClick = (game: GameData) => {
-        setGameToShow(game);
+        updateActiveGameLeaderboard(game);
     };
 
     useEffect(() => {
         const fetchGameScores = async () => {
             const scoresRef = collection(
                 db,
-                `leaderboard/${gameToShow.gameId}/scores`
+                `leaderboard/${activeGame.gameId}/scores`
             );
             const querySnap = await getDocs(scoresRef);
             const scores: Score[] = [];
@@ -48,14 +54,14 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                 setScores(data);
             })
             .catch(console.error);
-    }, [gameToShow]);
+    }, [activeGame]);
 
     return (
         <div className="flex flex-col items-center p-4 gap-6">
             <h1 className="text-3xl font-nunito-bold">Leaderboard</h1>
             <div className="flex gap-6 flex-wrap justify-center">
                 {games.map((game) => {
-                    const isSelectedGame = Object.is(gameToShow, game);
+                    const isSelectedGame = Object.is(activeGame, game);
 
                     return (
                         <button
@@ -83,7 +89,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                 })}
             </div>
             <h2 className="text-xl font-nunito-bold uppercase">
-                {gameToShow.title}
+                {activeGame.title}
             </h2>
             {scores?.length ? (
                 <table className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md">

@@ -17,7 +17,8 @@ function App() {
     const [game, setGame] = useState<GameData | null>(null);
     const [isGameActive, setIsGameActive] = useState(false);
     const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
-    const [lastPlayedGame, setLastPlayedGame] = useState<GameData | null>(null);
+    const [activeGameLeaderboard, setActiveGameLeaderboard] =
+        useState<GameData | null>(null);
     const [startTime, setStartTime] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [finalTimerTime, setFinalTimerTime] = useState<Timer>({
@@ -76,9 +77,12 @@ function App() {
             return;
         }
         setGame(gamePath);
-        setLastPlayedGame(gamePath);
+        setActiveGameLeaderboard(gamePath);
         setIsGameActive(true);
     }, [location]);
+
+    const updateActiveGameLeaderboard = (state: null | GameData) =>
+        setActiveGameLeaderboard(state);
 
     return (
         <div className="bg-inherit flex flex-col h-full">
@@ -119,7 +123,12 @@ function App() {
                     <Route
                         path="/leaderboard"
                         element={
-                            <Leaderboard lastPlayedGame={lastPlayedGame} />
+                            <Leaderboard
+                                activeGameLeaderboard={activeGameLeaderboard}
+                                updateActiveGameLeaderboard={
+                                    updateActiveGameLeaderboard
+                                }
+                            />
                         }
                     />
                     <Route path="*" element={<NotFound />} />
