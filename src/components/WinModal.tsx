@@ -77,7 +77,7 @@ function WinModal({
 
                     <button
                         type="submit"
-                        className="self-end rounded-lg bg-primary text-light-background px-6 py-1.5 hover:bg-primary/80 transition ease-in-out duration-300 active:scale-95"
+                        className="self-end rounded-lg bg-primary text-dark-background px-6 py-1.5 hover:bg-primary/80 transition ease-in-out duration-300 active:scale-95"
                     >
                         Submit
                     </button>

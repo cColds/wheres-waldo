@@ -65,7 +65,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                         <button
                             key={game.id}
                             onClick={() => handleMapClick(game)}
-                            className="flex flex-col grow shadow-lg w-[350px] h-[350px] dark:bg-dark-secondary rounded-lg cursor-pointer"
+                            className="flex flex-col grow shadow-md w-[350px] h-[350px] bg-cyan-100/30 dark:bg-dark-secondary rounded-lg cursor-pointer"
                         >
                             <img
                                 src={game.image}
@@ -82,16 +82,16 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                     );
                 })}
             </div>
-            <h2 className="text-xl font-nunito-bold text-orange-800 dark:text-yellow-400 uppercase">
+            <h2 className="text-xl font-nunito-bold uppercase">
                 {gameToShow.title}
             </h2>
 
             <table
-                className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px]"
+                className="rounded-lg overflow-hidden border-spacing-0 border-separate text-light-background w-full max-w-[750px] shadow-md"
                 ref={leaderboardRef}
             >
-                <thead className="bg-slate-800">
-                    <tr>
+                <thead className="bg-slate-300 dark:bg-slate-800">
+                    <tr className="text-light-text dark:text-dark-text">
                         <td className="p-4">Place</td>
                         <td className="p-4">Username</td>
                         <td className="p-4">Time</td>
@@ -99,10 +99,13 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                     </tr>
                 </thead>
 
-                <tbody className="bg-slate-900">
+                <tbody className="bg-slate-200/70 dark:bg-slate-900">
                     {scores?.map((score, index) => {
                         return (
-                            <tr key={index}>
+                            <tr
+                                key={index}
+                                className="text-light-text dark:text-dark-text"
+                            >
                                 <td className="p-4">{index + 1}</td>
                                 <td className="p-4 overflow-hidden text-ellipsis max-w-[150px]">
                                     {score.username}

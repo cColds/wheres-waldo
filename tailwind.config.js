@@ -5,17 +5,18 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "#d21e32",
+                primary: "#4CE1D7",
                 light: {
-                    text: "#050505",
-                    background: "#fafafa",
-                    secondary: "#d1cdfe",
+                    text: "#070811",
+                    background: "#E1EFE7",
+                    secondary: "#CFE6F6",
+                    accent: "#0E3553",
                 },
 
                 dark: {
                     text: "#e8e6fe",
-                    background: "#010005",
-                    secondary: "#05012d",
+                    background: "#0B0D22",
+                    secondary: "#071926",
                 },
             },
             boxShadow: {

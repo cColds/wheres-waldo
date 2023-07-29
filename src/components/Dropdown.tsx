@@ -127,7 +127,7 @@ function Dropdown({
         <>
             <ul
                 style={dropdownPosition}
-                className="absolute bg-light-background dark:bg-dark-secondary rounded-lg animate-fade-in w-[150px]"
+                className="absolute bg-light-background dark:bg-dark-secondary rounded-lg animate-fade-in w-[150px] overflow-hidden"
             >
                 {items.characters.map((character) => {
                     if (character.found) return null;
@@ -146,7 +146,7 @@ function Dropdown({
                                     width="40"
                                     height="40"
                                     draggable="false"
-                                    className="shadow-lg rounded-lg aspect-square"
+                                    className="rounded-lg aspect-square"
                                 />
                                 <span>{character.name}</span>
                             </button>

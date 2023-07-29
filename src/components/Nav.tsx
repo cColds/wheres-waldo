@@ -40,7 +40,9 @@ function Nav({
             <Link to="/" aria-label="pixelhunt homepage">
                 <p className="text-2xl">
                     <span>Pixel</span>
-                    <span className="text-primary">Hunt</span>
+                    <span className="text-cyan-800 dark:text-primary">
+                        Hunt
+                    </span>
                 </p>
             </Link>
 
@@ -77,7 +79,7 @@ function Nav({
                                     height="40px"
                                     className={`${
                                         character.found ? "opacity-70" : ""
-                                    } shadow-lg rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out`}
+                                    } rounded-lg object-cover aspect-square hover:scale-110 transition-transform duration-300 ease-in-out`}
                                 />
                                 <p
                                     className={`${
@@ -99,6 +101,7 @@ function Nav({
                     <button
                         onClick={toggleCharacterList}
                         className="rounded-full bg-red-800 w-[30px] h-[30px] text-dark-text mr-6"
+                        aria-label="toggle character list"
                     >
                         {getCharsAlive(game)?.length ?? 3}
                     </button>
@@ -108,7 +111,7 @@ function Nav({
 
             <button
                 onClick={handleThemeToggle}
-                className="shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-100 dark:border-slate-800 border-[1px] dark:hover:bg-slate-900"
+                className="bg-slate-100 border-slate-300 border-[1px] shadow-lg flex justify-center w-[40px] h-[40px] rounded-lg p-2 text-primary hover:bg-slate-200 dark:bg-dark-background dark:border-slate-800  dark:hover:bg-slate-900 transition ease-in-out duration-300"
                 aria-label="toggle theme"
             >
                 {isDark ? (
@@ -123,7 +126,7 @@ function Nav({
 
 function CharacterList({ game }: { game: GameData }) {
     return (
-        <ul className="absolute top-[30px] bg-light-background dark:bg-dark-secondary rounded-lg animate-fade-in w-[150px]">
+        <ul className="absolute top-[30px] bg-light-background shadow-md dark:bg-dark-secondary rounded-lg animate-fade-in w-[150px] overflow-hidden">
             {game.characters.map((character) => {
                 if (character.found) return null;
 
@@ -136,7 +139,7 @@ function CharacterList({ game }: { game: GameData }) {
                                 width="40"
                                 height="40"
                                 draggable="false"
-                                className="shadow-lg rounded-lg aspect-square"
+                                className="rounded-lg aspect-square"
                             />
                             <span>{character.name}</span>
                         </button>
