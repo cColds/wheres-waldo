@@ -53,7 +53,7 @@ function WinModal({
                         You finished in {totalTimeInSeconds.toFixed(3)}s!
                     </h1>
                     <p className="text-slate-600 dark:text-slate-400">
-                        Submit your time to the leaderboard
+                        Submit your score to the leaderboard
                     </p>
                 </div>
 
