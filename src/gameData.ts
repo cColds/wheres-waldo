@@ -52,6 +52,33 @@ const games = [
             },
         ],
     },
+
+    {
+        title: "Aquatic Aquarium",
+        image: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-3%2Fbackground%2Faquatic-aquarium.webp?alt=media&token=c35739d5-e864-4a60-8902-70f07d052fe4",
+        gameId: "game-3",
+        id: crypto.randomUUID(),
+        characters: [
+            {
+                name: "Feebas",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-3%2Fcharacters%2Ffeebas.webp?alt=media&token=5d39eda0-96f8-4fe8-9e40-5668bf6dc8a7",
+                found: false,
+                marker: { x: 222, y: 703 },
+            },
+            {
+                name: "Starmie",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-3%2Fcharacters%2Fstarmie.webp?alt=media&token=04ebb186-fe03-40d2-93f5-94edda079eaa",
+                found: false,
+                marker: { x: 1916, y: 880 },
+            },
+            {
+                name: "Mantyke",
+                url: "https://firebasestorage.googleapis.com/v0/b/wheres-waldo-74fe1.appspot.com/o/game-3%2Fcharacters%2Fmantyke.webp?alt=media&token=ea658a2b-c6f4-4913-b63b-becb487fbd29",
+                found: false,
+                marker: { x: 2108, y: 449 },
+            },
+        ],
+    },
 ];
 
 export default games;
