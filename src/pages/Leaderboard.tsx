@@ -92,7 +92,7 @@ function Leaderboard({ lastPlayedGame }: { lastPlayedGame: GameData | null }) {
                 <tbody className="bg-slate-900">
                     {scores?.map((score, index) => {
                         return (
-                            <tr key={crypto.randomUUID()}>
+                            <tr key={index}>
                                 <td className="p-4">{index + 1}</td>
                                 <td className="p-4 overflow-hidden text-ellipsis max-w-[150px]">
                                     {score.username}
